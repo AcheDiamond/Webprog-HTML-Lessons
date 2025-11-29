@@ -1,19 +1,14 @@
 .container {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    background-color: #6B9EB0;
-    padding: 20px;
-    width: fit-content;
-    margin-top: 20px;
+    flex-wrap: wrap;
+    background-color: LightBlue;
 }
 
 .container div {
-    background-color: #E8F4F8;
-    border: 2px solid #999;
-    padding: 30px 35px;
-    font-size: 28px;
+    background-color: #f1f1f1;
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
     text-align: center;
-    color: #000;
-    min-width: 80px;
+    font-size: 30px;
 }
