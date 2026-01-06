@@ -1,66 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/flexbox.css" />
-  <title>WEBPROG SF241</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Amiel Chavez personal portfolio website for WEBPROG SF241." />
+  <title>Amiel Chavez | WEBPROG SF241</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
-<body>
+<body data-bs-spy="scroll" data-bs-target="#siteNav" data-bs-smooth-scroll="true" tabindex="0">
+  <!-- Navbar -->
+  <nav id="siteNav" class="navbar navbar-expand-lg navbar-light sticky-top nav-glass border-bottom">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">Amiel</a>
 
-  <h1>Collaboration Web Page of Amiel and Terrence</h1>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navLinks"
+              aria-controls="navLinks" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="Content">
-    <h2>About Us</h2>
+      <div class="collapse navbar-collapse" id="navLinks">
+        <ul class="navbar-nav ms-auto gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#hobbies">Hobbies</a></li>
+          <li class="nav-item"><a class="nav-link" href="#goals">Goals</a></li>
+          <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+          <li class="nav-item"><a class="btn btn-sm btn-primary ms-lg-2" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-    <section class="profile-card amiel">
-      <img src="Amiel profile picture.jpg" alt="Amiel Chavez Profile Picture" width="300" height="250">
+  <!-- Hero -->
+  <header id="home" class="hero-section">
+    <div class="container py-5">
+      <div class="row align-items-center gy-4">
+        <div class="col-lg-7 text-center text-lg-start">
+          <p class="subtitle mb-2">WEBPROG SF241 • Personal Website</p>
 
-      <p class="name">Amiel Chavez</p>
-      <p>Hello Everyone! I am Amiel Chavez.</p>
+          <h1 class="display-4 fw-bold mb-2 hero-title">
+            <span class="hero-muted">Hi, my name is</span>
+            <span class="hero-name">Amiel</span>.
+          </h1>
 
-      <h3>Education / Achievements</h3>
-      <p>BSCS SF241 - Asia Pacific College</p>
+          <p class="lead mb-4">
+            <span class="hero-muted">I’m a </span>
+            <span id="typingText" class="typing"></span>
+            <span class="typing-cursor" aria-hidden="true">|</span>
+          </p>
 
-      <h3>Course</h3>
-      <p>Bachelor of Science in Computer Science Specializing in Cybersecurity &amp; Forensics</p>
+          <div class="d-flex flex-wrap gap-2 justify-content-center justify-content-lg-start">
+            <a class="btn btn-primary btn-lg" href="#about">Explore</a>
+            <a class="btn btn-outline-primary btn-lg" href="#skills">My Skills</a>
+          </div>
 
-      <h3>IT Experience</h3>
-      <p>Java, Python, Ubuntu</p>
+          <p class="scroll-hint mb-0 mt-4">Scroll to explore ↓</p>
+        </div>
 
-      <h3>Hobbies &amp; Interests</h3>
-      <p>Movies, Music, Online games, Video games, Billiards, Photography, Art gallery, Manhwa, Anime</p>
+        <div class="col-lg-5">
+          <div class="profile-card">
+            <span class="card-badge">Profile</span>
+            <h2 class="h4 mb-3">Quick Intro</h2>
 
-      <h3>Goals In Life / Dream</h3>
-      <p>Travel the world alone and become rich enough to live comfy, bumili ng Bugatti Chiron Pur Sport</p>
+            <!-- CSS GRID (inside card) -->
+            <div class="quick-grid">
+              <div class="quick-chip"><strong>Nickname:</strong> <span class="text-muted">Miel / AD</span></div>
+              <div class="quick-chip"><strong>Track:</strong> <span class="text-muted">Cybersecurity & Forensics</span></div>
+              <div class="quick-chip"><strong>Tools:</strong> <span class="text-muted">Java, Python, Ubuntu</span></div>
+              <div class="quick-chip"><strong>Goal:</strong> <span class="text-muted">Build strong real-world skills</span></div>
+            </div>
+
+            <div class="profile-img-container">
+              <!-- TIP: For GitHub Pages, prefer a local image: assets/img/profile.jpg -->
+              <img
+                src="assets/img/profile.jpg"
+                alt="Portrait of Amiel Chavez"
+                class="profile-img"
+                width="420"
+                height="520"
+                loading="lazy"
+              />
+              <p class="small text-muted mt-2 mb-0">Tip: Use a local image for reliability.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- About -->
+    <section id="about" class="content-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">About Me</h2>
+          <p class="section-subtitle">A short, clear summary (simple + easy to scan).</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="profile-card h-100">
+              <span class="card-badge">About</span>
+              <h3 class="h5">Who I am</h3>
+              <p>
+                Hello! I’m Amiel Chavez, a Computer Science student specializing in
+                <span class="highlight">Cybersecurity & Forensics</span>.
+                I enjoy building clean, responsive websites and improving my coding fundamentals.
+              </p>
+              <p class="mb-0">
+                This website is a single-page portfolio made with <span class="highlight">HTML, CSS (Flexbox + Grid)</span>,
+                <span class="highlight">Bootstrap 5</span>, and <span class="highlight">JavaScript</span>.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="profile-card h-100">
+              <span class="card-badge">Focus</span>
+              <h3 class="h5">What I’m working on</h3>
+              <ul class="mb-0">
+                <li>Front-end foundations (layout, accessibility, responsiveness)</li>
+                <li>Clean UI design using consistent spacing and colors</li>
+                <li>Building projects to strengthen my portfolio</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="profile-card terrence">
-      <img src="tj1x1.jpg" alt="Terrence Josh Corpuz Profile Picture" width="300" height="250">
+    <!-- Education -->
+    <section id="education" class="content-section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Education</h2>
+          <p class="section-subtitle">Kept consistent with card layout + color system.</p>
+        </div>
 
-      <p class="name">Terrence Josh Corpuz</p>
-      <p>Hello Everyone! I am Terrence Josh Corpuz.</p>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="profile-card h-100">
+              <span class="card-badge">School</span>
+              <h3 class="h5">Asia Pacific College</h3>
+              <p class="mb-0">
+                <strong>Program:</strong> BS Computer Science<br>
+                <strong>Section:</strong> SF241
+              </p>
+            </div>
+          </div>
 
-      <h3>Education / Achievements</h3>
-      <p>BSCS SF241 - Asia Pacific College</p>
-
-      <h3>Course</h3>
-      <p>Bachelor of Science in Computer Science Specializing in Cybersecurity &amp; Forensics</p>
-
-      <h3>IT Experience</h3>
-      <p>Python, Ubuntu, XAMPP, Caesar cipher, Arduino</p>
-
-      <h3>Hobbies &amp; Interests</h3>
-      <p>Cooking, Eating, Volleyball, Gym</p>
-
-      <h3>Goals In Life / Dream</h3>
-      <p>To become a successful Computer Science student and help secure the digital world!</p>
-
-      <p>I'm Lebron 👑 Son</p>
+          <div class="col-md-6">
+            <div class="profile-card h-100">
+              <span class="card-badge">Course</span>
+              <h3 class="h5">WEBPROG</h3>
+              <p class="mb-0">
+                Building responsive web pages using HTML, CSS, Bootstrap 5, and JavaScript.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-  </div>
+    <!-- Skills (CSS Grid) -->
+    <section id="skills" class="content-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Skills</h2>
+          <p class="section-subtitle">This section uses a responsive CSS Grid.</p>
+        </div>
 
+        <div class="skills-grid">
+          <div class="skill-tile">HTML5</div>
+          <div class="skill-tile">CSS3</div>
+          <div class="skill-tile">Flexbox</div>
+          <div class="skill-tile">CSS Grid</div>
+          <div class="skill-tile">Bootstrap 5</div>
+          <div class="skill-tile">Java</div>
+          <div class="skill-tile">Python</div>
+          <div class="skill-tile">Ubuntu</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hobbies -->
+    <section id="hobbies" class="content-section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Hobbies & Interests</h2>
+          <p class="section-subtitle">A clean list with consistent styling.</p>
+        </div>
+
+        <div class="profile-card">
+          <span class="card-badge">Fun</span>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <ul class="mb-0">
+                <li>Movies</li>
+                <li>Music</li>
+                <li>Online games</li>
+                <li>Video games</li>
+                <li>Billiards</li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="mb-0">
+                <li>Photography</li>
+                <li>Art gallery</li>
+                <li>Manhwa</li>
+                <li>Anime</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Goals -->
+    <section id="goals" class="content-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Goals</h2>
+          <p class="section-subtitle">Clear and simple.</p>
+        </div>
+
+        <div class="profile-card">
+          <span class="card-badge">Goals</span>
+          <p class="mb-0">
+            I want to travel, keep improving my skills, and build a comfortable future.
+            One day, I’d also love to own a <span class="highlight">Bugatti Chiron Pur Sport</span>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="content-section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Contact</h2>
+          <p class="section-subtitle">Client-side validation + copy email feature.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <form class="profile-card" id="contactForm" novalidate>
+              <span class="card-badge">Message</span>
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" class="form-control" type="text" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" class="form-control" type="email" required>
+                <div class="invalid-feedback">Please enter a valid email.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" class="form-control" rows="4" required></textarea>
+                <div class="invalid-feedback">Please enter a message.</div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" type="submit">Send (demo)</button>
+                <button class="btn btn-outline-primary" type="button" id="copyEmailBtn">Copy my email</button>
+              </div>
+
+              <p class="small mt-3 mb-0" id="formStatus" role="status" aria-live="polite"></p>
+              <p class="small text-muted mt-2 mb-0">Email: <span id="myEmail">you@example.com</span></p>
+            </form>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="profile-card h-100">
+              <span class="card-badge">Links</span>
+              <h3 class="h5">Find me online</h3>
+              <ul class="mb-0">
+                <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
+                <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+              </ul>
+              <p class="text-muted mt-3 mb-0">
+                Tip: Add your real links before submitting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="content-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Resources / Credits</h2>
+          <p class="section-subtitle">Required: document all resources used.</p>
+        </div>
+
+        <div class="profile-card">
+          <span class="card-badge">Credits</span>
+          <ul class="mb-0">
+            <li>Bootstrap 5 (CSS framework + components)</li>
+            <li>GitHub Pages (site hosting)</li>
+            <li>(Add: icon packs, fonts, images if you use them)</li>
+          </ul>
+
+          <hr>
+
+          <p class="mb-0 text-muted small">
+            Validation tools used: W3C HTML Validator and W3C CSS Validator.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="py-4 border-top footer-soft">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <small class="text-muted">© <span id="year"></span> Amiel Chavez • WEBPROG SF241</small>
+      <small class="text-muted">Single-page responsive site (Bootstrap 5 + CSS Grid/Flex + JS)</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
