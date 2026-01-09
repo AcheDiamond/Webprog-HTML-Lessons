@@ -10,6 +10,11 @@ let roleIndex = 0;
 let charIndex = 0;
 let deleting = false;
 
+const typingSpeed = 55;
+const deletingSpeed = 90;   // 👈 increase this to slow deletion
+const pauseAfterType = 900;
+const pauseAfterDelete = 250;
+
 function typeLoop() {
   const current = roles[roleIndex];
 
@@ -17,7 +22,7 @@ function typeLoop() {
     typingEl.textContent = current.slice(0, charIndex++);
     if (charIndex > current.length) {
       deleting = true;
-      setTimeout(typeLoop, 900);
+      setTimeout(typeLoop, pauseAfterType);
       return;
     }
   } else {
@@ -25,12 +30,14 @@ function typeLoop() {
     if (charIndex < 0) {
       deleting = false;
       roleIndex = (roleIndex + 1) % roles.length;
-      setTimeout(typeLoop, 250);
+      setTimeout(typeLoop, pauseAfterDelete);
       return;
     }
   }
-  setTimeout(typeLoop, deleting ? 35 : 55);
+
+  setTimeout(typeLoop, deleting ? deletingSpeed : typingSpeed);
 }
+
 typeLoop();
 
 /* ========= DOM ready ========= */
