@@ -356,6 +356,30 @@ ul li::before{
   backdrop-filter: blur(8px);
 }
 .copy-toast.show{ display: inline-flex; }
+<<<<<<< HEAD
+
+@media (max-width: 768px){
+  .links-card{
+    padding-right: 2rem;
+    min-height: auto;
+  }
+
+  .refs-sticker{
+    position: static !important;     
+    transform: none !important;
+    width: min(360px, 92%) !important;
+    margin: 18px auto 0 auto;        
+  }
+
+  .refs-sticker img{
+    transform: rotate(-2deg) !important;
+  }
+
+  .social-list{
+    padding-bottom: 0 !important;
+  }
+}
+=======
 
 /* Links card: reserve space on desktop so text never goes under sticker */
 .links-card{
@@ -407,26 +431,4 @@ ul li::before{
 @keyframes stickerPulse{
   0%, 100% { transform: rotate(-5deg) scale(1); }
   50%      { transform: rotate(-5deg) scale(1.04); }
-}
-
-@media (max-width: 768px){
-  .links-card{
-    padding-right: 2rem;
-    min-height: auto;
-  }
-
-  .social-list{
-    padding-bottom: 180px;
-  }
-
-  .refs-sticker{
-    right: 50%;
-    bottom: 18px;
-    transform: translateX(50%);
-    width: min(360px, 88%);
-  }
-
-  .refs-sticker img{
-    transform: rotate(-2deg);
-  }
 }
