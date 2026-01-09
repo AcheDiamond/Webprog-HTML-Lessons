@@ -1,31 +1,35 @@
 const roles = [
   "Computer Science Student",
-  "Bed Rotting Enjoyer",
+  "Cybersecurity & Forensics Learner",
   "Chopped Asian boi"
 ];
 
+const typingEl = document.getElementById("typingText");
+
 let roleIndex = 0;
 let charIndex = 0;
-let isDeleting = false;
+let deleting = false;
 
-function typeLoop(){
-  const el = document.getElementById("typingText");
-  if(!el) return;
-
+function typeLoop() {
   const current = roles[roleIndex];
-  el.textContent = current.substring(0, charIndex);
 
-  if(!isDeleting && charIndex < current.length){
-    charIndex++;
-  } else if(isDeleting && charIndex > 0){
-    charIndex--;
+  if (!deleting) {
+    typingEl.textContent = current.slice(0, charIndex++);
+    if (charIndex > current.length) {
+      deleting = true;
+      setTimeout(typeLoop, 900);
+      return;
+    }
   } else {
-    isDeleting = !isDeleting;
-    if(!isDeleting) roleIndex = (roleIndex + 1) % roles.length;
+    typingEl.textContent = current.slice(0, charIndex--);
+    if (charIndex < 0) {
+      deleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      setTimeout(typeLoop, 250);
+      return;
+    }
   }
-
-  const speed = isDeleting ? 50 : 90;
-  setTimeout(typeLoop, isDeleting && charIndex === 0 ? 450 : speed);
+  setTimeout(typeLoop, deleting ? 35 : 55);
 }
 typeLoop();
 
