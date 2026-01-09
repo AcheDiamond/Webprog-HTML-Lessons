@@ -352,7 +352,6 @@ ul li::before{
   50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
-/* Mobile: sticker goes BELOW content (never overlay) */
 @media (max-width: 768px){
   .links-card{
     padding-right: 2rem;
@@ -369,3 +368,34 @@ ul li::before{
     transform: rotate(-2deg);
   }
 }
+
+/* ================================
+   FIX: Gallery images showing cropped
+   (Bootstrap carousel + Vue gallery)
+   ================================ */
+
+#hobbyCarousel .carousel-inner { 
+  background: #f0f9ff;
+}
+
+#hobbyCarousel .carousel-item{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hobbyCarousel img.gallery-img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;   
+  object-position: center !important;
+}
+
+.carousel-frame img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;   
+  object-position: center !important;
+}
+
