@@ -86,7 +86,7 @@ const GuestbookForm = {
 
         <p v-if="status" class="small mt-3 mb-0" role="status" aria-live="polite">{{ status }}</p>
         <p class="small text-muted mt-2 mb-0">
-          This is a demo guestbook (saved on your browser using localStorage).
+          This is a demo guestbook.
         </p>
       </form>
 
