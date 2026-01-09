@@ -226,6 +226,7 @@ ul li::before{
 
 #hobbyCarousel .carousel-control-prev-icon,
 #hobbyCarousel .carousel-control-next-icon{
-  filter: invert(48%) sepia(96%) saturate(400%) hue-rotate(170deg) brightness(100%) contrast(95%);
+  filter: invert(48%) sepia(96%) saturate(400%) hue-rotate(170deg) brightness(100%) contrast(95%) !important;
+  opacity: 1 !important;
 }
 
