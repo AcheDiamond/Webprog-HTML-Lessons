@@ -124,6 +124,18 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         doScroll();
       }
+
+      // --- Testing ---
+  const initScrollSpy = () => {
+    if (!window.bootstrap) return;
+
+    const old = window.bootstrap.ScrollSpy.getInstance(document.body);
+    if (old) old.dispose();
+
+    const offset = getOffset();
+
+    new window.bootstrap.ScrollSpy(document.body, {
+      target: "#siteNav",
+      rootMargin: `-${offset}px 0px -60% 0px`
     });
-  });
-});
+  };
