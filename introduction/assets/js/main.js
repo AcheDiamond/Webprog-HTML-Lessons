@@ -2,7 +2,7 @@
 const roles = [
   "Computer Science Student",
   "Cybersecurity & Forensics Learner",
-  "Front-End Developer (in progress)"
+  "Chopped Asian boi"
 ];
 
 const typingEl = document.getElementById("typingText");
