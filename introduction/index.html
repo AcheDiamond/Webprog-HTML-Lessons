@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#siteNav" data-bs-smooth-scroll="true" tabindex="0">
+<body data-bs-spy="scroll" data-bs-target="#siteNav" tabindex="0">
   <!-- Navbar -->
   <nav id="siteNav" class="navbar navbar-expand-lg navbar-light sticky-top nav-glass border-bottom">
     <div class="container">
@@ -166,7 +166,7 @@
       </div>
     </section>
 
-    <!-- Skills (CSS Grid) -->
+    <!-- Skills -->
     <section id="skills" class="content-section">
       <div class="container">
         <div class="section-header">
@@ -218,10 +218,19 @@
           </div>
         </div>
 
-        <!-- Vue Gallery Component -->
-        <div id="vueGallery" class="profile-card mt-4">
-          <gallery-carousel></gallery-carousel>
+        <!-- Vue Gallery -->
+        <div class="profile-card mt-4">
+          <div id="vueGallery">
+            <gallery-carousel></gallery-carousel>
+          </div>
           <p class="small text-muted mt-2 mb-0">Swipe on mobile or use arrows on desktop.</p>
+        </div>
+
+        <!-- Vue Guestbook -->
+        <div class="profile-card mt-4">
+          <div id="vueGuestbook">
+            <guestbook-form></guestbook-form>
+          </div>
         </div>
       </div>
     </section>
@@ -254,12 +263,39 @@
 
         <div class="row g-4">
           <div class="col-lg-6">
-            <div id="vueGuestbook" class="profile-card">
-              <guestbook-form></guestbook-form>
-            </div>
+            <form class="profile-card" id="contactForm" novalidate>
+              <span class="card-badge">Message</span>
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" class="form-control" type="text" required>
+                <div class="invalid-feedback">Please enter your name.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" class="form-control" type="email" required>
+                <div class="invalid-feedback">Please enter a valid email.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" class="form-control" rows="4" required></textarea>
+                <div class="invalid-feedback">Please enter a message.</div>
+              </div>
+
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-primary" type="submit">Send (demo)</button>
+                <button class="btn btn-outline-primary" type="button" id="copyEmailBtn">Copy my email</button>
+              </div>
+
+              <p class="small mt-3 mb-0" id="formStatus" role="status" aria-live="polite"></p>
+              <p class="small text-muted mt-2 mb-0">
+                Email: <span id="myEmail">chavez.amiel.diamond@gmail.com</span> <span class="text-muted">(dont spam pls)</span>
+              </p>
+            </form>
           </div>
 
-          <!-- Links (with sticker) -->
           <div class="col-lg-6">
             <div class="profile-card h-100 links-card">
               <span class="card-badge">Links</span>
@@ -268,35 +304,51 @@
                 <img src="assets/img/AD-Smol.png" alt="Click me for references">
               </a>
 
-              <h3 class="h5">Find me online</h3>
+              <div class="copy-toast" id="copyToast" role="status" aria-live="polite">Copied!</div>
 
-              <ul class="mb-0">
-                <li>
-                  <a href="https://github.com/AcheDiamond" target="_blank" rel="noopener">
-                    GitHub – github.com/AcheDiamond
-                  </a>
+              <h3 class="h5 mb-3">Find me online</h3>
+
+              <ul class="social-list">
+                <li class="social-item">
+                  <div class="social-left">
+                    <span class="social-icon" aria-hidden="true">🐙</span>
+                    <a class="social-link" href="https://github.com/AcheDiamond" target="_blank" rel="noopener">GitHub</a>
+                    <span class="social-handle">AcheDiamond</span>
+                  </div>
+                  <button class="btn btn-outline-primary copy-btn" type="button" data-copy="AcheDiamond">Copy</button>
                 </li>
 
-                <li class="mt-2">
-                  <a href="https://www.linkedin.com/in/amiel-chavez-b58154343/" target="_blank" rel="noopener">
-                    LinkedIn – linkedin.com/in/amiel-chavez
-                  </a>
+                <li class="social-item">
+                  <div class="social-left">
+                    <span class="social-icon" aria-hidden="true">💼</span>
+                    <a class="social-link" href="https://www.linkedin.com/in/amiel-chavez-b58154343/" target="_blank" rel="noopener">LinkedIn</a>
+                    <span class="social-handle">amiel-chavez</span>
+                  </div>
+                  <button class="btn btn-outline-primary copy-btn" type="button" data-copy="amiel-chavez">Copy</button>
                 </li>
 
-                <li class="mt-2">
-                  <a href="https://www.facebook.com/amiel.chavez.583" target="_blank" rel="noopener">
-                    Facebook – facebook.com/amiel.chavez
-                  </a>
+                <li class="social-item">
+                  <div class="social-left">
+                    <span class="social-icon" aria-hidden="true">📘</span>
+                    <a class="social-link" href="https://www.facebook.com/amiel.chavez.583" target="_blank" rel="noopener">Facebook</a>
+                    <span class="social-handle">amiel.chavez.583</span>
+                  </div>
+                  <button class="btn btn-outline-primary copy-btn" type="button" data-copy="amiel.chavez.583">Copy</button>
                 </li>
 
-                <li class="mt-2">
-                  <a href="https://www.instagram.com/he_was.once/" target="_blank" rel="noopener">
-                    Instagram – @he_was.once
-                  </a>
+                <li class="social-item">
+                  <div class="social-left">
+                    <span class="social-icon" aria-hidden="true">📷</span>
+                    <a class="social-link" href="https://www.instagram.com/he_was.once/" target="_blank" rel="noopener">Instagram</a>
+                    <span class="social-handle">@he_was.once</span>
+                  </div>
+                  <button class="btn btn-outline-primary copy-btn" type="button" data-copy="@he_was.once">Copy</button>
                 </li>
               </ul>
 
-              <p class="text-muted mt-3 mb-0"></p>
+              <p class="text-muted mt-3 mb-0">
+                Tip: click the sticker to view the references/resources used.
+              </p>
             </div>
           </div>
         </div>
@@ -312,12 +364,10 @@
     </div>
   </footer>
 
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-
   <script src="assets/js/vue-app.js"></script>
-
   <script src="assets/js/main.js"></script>
 </body>
 </html>

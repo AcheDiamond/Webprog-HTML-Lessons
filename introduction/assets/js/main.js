@@ -1,127 +1,112 @@
-const roles = [
-  "Computer Science Student",
-  "Cybersecurity & Forensics Learner",
-  "Chopped Asian boi"
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-const typingEl = document.getElementById("typingText");
+  const typingEl = document.getElementById("typingText");
+  const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
+  let wi = 0, ci = 0;
+  function typeLoop() {
+    if (!typingEl) return;
+    typingEl.textContent = words[wi].slice(0, ci++);
+    if (ci <= words[wi].length) requestAnimationFrame(typeLoop);
+    else setTimeout(() => {
+      ci = 0;
+      wi = (wi + 1) % words.length;
+      requestAnimationFrame(typeLoop);
+    }, 1200);
+  }
+  typeLoop();
 
-let roleIndex = 0;
-let charIndex = 0;
-let deleting = false;
+  const nav = document.getElementById("siteNav");
+  if (nav && window.bootstrap?.ScrollSpy) {
+    const existing = bootstrap.ScrollSpy.getInstance(document.body);
+    if (existing) existing.dispose();
 
-const typingSpeed = 55;
-const deletingSpeed = 90;   
-const pauseAfterType = 900;
-const pauseAfterDelete = 250;
-
-function typeLoop() {
-  const current = roles[roleIndex];
-
-  if (!deleting) {
-    typingEl.textContent = current.slice(0, charIndex++);
-    if (charIndex > current.length) {
-      deleting = true;
-      setTimeout(typeLoop, pauseAfterType);
-      return;
-    }
-  } else {
-    typingEl.textContent = current.slice(0, charIndex--);
-    if (charIndex < 0) {
-      deleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      setTimeout(typeLoop, pauseAfterDelete);
-      return;
-    }
+    new bootstrap.ScrollSpy(document.body, {
+      target: "#siteNav",
+      offset: nav.offsetHeight + 20
+    });
   }
 
-  setTimeout(typeLoop, deleting ? deletingSpeed : typingSpeed);
-}
+  const navLinks = document.querySelectorAll('#siteNav a[href^="#"]');
+  navLinks.forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
 
-typeLoop();
+      const target = document.querySelector(href);
+      if (!target) return;
 
-/* ========= DOM ready ========= */
-document.addEventListener("DOMContentLoaded", () => {
-  // Footer year
-  const yearEl = document.getElementById("year");
-  if(yearEl) yearEl.textContent = new Date().getFullYear();
+      e.preventDefault();
+
+      const navH = nav ? nav.offsetHeight : 0;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+
+      // Close mobile menu after click
+      const collapse = document.getElementById("navLinks");
+      if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
+        const bsCollapse = bootstrap.Collapse.getInstance(collapse) || new bootstrap.Collapse(collapse, { toggle: false });
+        bsCollapse.hide();
+      }
+    });
+  });
 
   // Contact form validation (demo)
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
-
-  if(form){
+  if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      if(!form.checkValidity()){
-        e.stopPropagation();
+      e.stopPropagation();
+
+      if (!form.checkValidity()) {
         form.classList.add("was-validated");
-        if(status) status.textContent = "Please fix the highlighted fields.";
+        if (status) status.textContent = "Please fix the errors above.";
         return;
       }
+
       form.classList.add("was-validated");
-      if(status) status.textContent = "Message sent (demo only). Thanks!";
+      if (status) status.textContent = "Message sent (demo). Thank you!";
       form.reset();
       form.classList.remove("was-validated");
     });
   }
 
   // Copy email button
-  const copyBtn = document.getElementById("copyEmailBtn");
-  const emailText = document.getElementById("myEmail");
-  if(copyBtn && emailText){
-    copyBtn.addEventListener("click", async () => {
-      const raw = (emailText.textContent || "").trim();
-      const email = raw.split(" ")[0]; // keep email only
-      try{
-        await navigator.clipboard.writeText(email);
-        if(status) status.textContent = "Email copied!";
-      }catch{
-        if(status) status.textContent = "Copy failed. Please copy manually.";
+  const copyEmailBtn = document.getElementById("copyEmailBtn");
+  const myEmail = document.getElementById("myEmail");
+  if (copyEmailBtn && myEmail) {
+    copyEmailBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(myEmail.textContent.trim());
+        if (status) status.textContent = "Email copied!";
+      } catch {
+        if (status) status.textContent = "Copy failed — please copy manually.";
       }
     });
   }
 
-  const nav = document.getElementById("siteNav");
-  const collapseEl = document.getElementById("navLinks");
-
-  const getOffset = () => (nav ? nav.offsetHeight + 16 : 90);
-
-  const applyScrollOffsets = () => {
-    const offset = getOffset();
-    document.documentElement.style.scrollPaddingTop = offset + "px";
-    document.querySelectorAll("section[id], header[id]").forEach((sec) => {
-      sec.style.scrollMarginTop = offset + "px";
-    });
-  };
-
-  applyScrollOffsets();
-  window.addEventListener("resize", applyScrollOffsets);
-
-  document.querySelectorAll('#siteNav a[href^="#"]').forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const href = a.getAttribute("href");
-      if(!href || href === "#") return;
-
-      const target = document.querySelector(href);
-      if(!target) return;
-
-      e.preventDefault();
-
-      const doScroll = () => {
-        const offset = getOffset();
-        const y = target.getBoundingClientRect().top + window.pageYOffset - offset;
-        window.scrollTo({ top: y, behavior: "smooth" });
-      };
-
-      if(collapseEl && collapseEl.classList.contains("show") && window.bootstrap){
-        const bsCollapse = window.bootstrap.Collapse.getOrCreateInstance(collapseEl);
-        bsCollapse.hide();
-        setTimeout(() => {
-          applyScrollOffsets();
-          doScroll();
-        }, 250);
-      } else {
-        doScroll();
+  // Copy social handles (buttons)
+  const toast = document.getElementById("copyToast");
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const value = btn.getAttribute("data-copy") || "";
+      try {
+        await navigator.clipboard.writeText(value);
+        if (toast) {
+          toast.textContent = `Copied: ${value}`;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
+      } catch {
+        if (toast) {
+          toast.textContent = "Copy failed";
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
       }
-
+    });
+  });
+});
