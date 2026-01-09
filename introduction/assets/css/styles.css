@@ -432,3 +432,26 @@ ul li::before{
   0%, 100% { transform: rotate(-5deg) scale(1); }
   50%      { transform: rotate(-5deg) scale(1.04); }
 }
+
+/* ===== FINAL MOBILE FIX: sticker must NOT overlay links ===== */
+@media (max-width: 768px){
+  .links-card{
+    padding-right: 2rem;
+    min-height: auto;
+  }
+
+  .refs-sticker{
+    position: static !important;     
+    transform: none !important;
+    width: min(360px, 92%) !important;
+    margin: 18px auto 0 auto;        
+  }
+
+  .refs-sticker img{
+    transform: rotate(-2deg) !important;
+  }
+
+  .social-list{
+    padding-bottom: 0 !important;
+  }
+}
