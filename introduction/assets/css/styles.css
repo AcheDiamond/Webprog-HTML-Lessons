@@ -239,4 +239,37 @@ ul li::before{
   filter: invert(38%) sepia(95%) saturate(520%) hue-rotate(170deg) brightness(90%) contrast(105%);
 }
 
+.navbar .nav-link{
+  padding: 6px 14px;
+  border-radius: 999px;                 
+  font-weight: 600;
+  color: #0369a1;                       
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.navbar .nav-link:hover{
+  background-color: rgba(14,165,233,0.12);
+  color: #0284c7;
+}
+
+.navbar .nav-link.active{
+  background-color: #0ea5e9;
+  color: white;
+}
+
+.navbar .nav-item{
+  margin-left: 6px;
+}
+
+.navbar .btn-primary{
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-weight: 700;
+}
+
+.navbar .nav-link:hover{
+  transform: translateY(-1px);
+}
+
+
 
