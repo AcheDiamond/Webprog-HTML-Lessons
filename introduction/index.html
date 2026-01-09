@@ -333,61 +333,72 @@
       </div>
     </section>
 
-    <section id="contact" class="content-section section-alt">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Contact</h2>
-          <p class="section-subtitle">Client-side validation + copy email feature.</p>
-        </div>
+<section id="contact" class="content-section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-subtitle">Client-side validation + copy email feature.</p>
+    </div>
 
-        <div class="row g-4">
-          <div class="col-lg-6">
-            <form class="profile-card" id="contactForm" novalidate>
-              <span class="card-badge">Message</span>
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <form class="profile-card" id="contactForm" novalidate>
+          <span class="card-badge">Message</span>
 
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input id="name" class="form-control" type="text" required>
-                <div class="invalid-feedback">Please enter your name.</div>
-              </div>
-
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input id="email" class="form-control" type="email" required>
-                <div class="invalid-feedback">Please enter a valid email.</div>
-              </div>
-
-              <div class="mb-3">
-                <label for="message" class="form-label">Message</label>
-                <textarea id="message" class="form-control" rows="4" required></textarea>
-                <div class="invalid-feedback">Please enter a message.</div>
-              </div>
-
-              <div class="d-flex flex-wrap gap-2">
-                <button class="btn btn-primary" type="submit">Send (demo)</button>
-                <button class="btn btn-outline-primary" type="button" id="copyEmailBtn">Copy my email</button>
-              </div>
-
-              <p class="small mt-3 mb-0" id="formStatus" role="status" aria-live="polite"></p>
-              <p class="small text-muted mt-2 mb-0">Email: <span id="myEmail">chavez.amiel.diamond@gmail.com (dont spam pls)</span></p>
-            </form>
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input id="name" class="form-control" type="text" required>
+            <div class="invalid-feedback">Please enter your name.</div>
           </div>
 
-          <div class="col-lg-6">
-            <div class="profile-card h-100">
-              <span class="card-badge">Links</span>
-              <h3 class="h5">Find me online</h3>
-              <ul class="mb-0">
-                <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
-                <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-              </ul>
-              <p class="text-muted mt-3 mb-0">
-              </p>
-            </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input id="email" class="form-control" type="email" required>
+            <div class="invalid-feedback">Please enter a valid email.</div>
           </div>
+
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" class="form-control" rows="4" required></textarea>
+            <div class="invalid-feedback">Please enter a message.</div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-primary" type="submit">Send (demo)</button>
+            <button class="btn btn-outline-primary" type="button" id="copyEmailBtn">Copy my email</button>
+          </div>
+
+          <p class="small mt-3 mb-0" id="formStatus" role="status" aria-live="polite"></p>
+          <p class="small text-muted mt-2 mb-0">
+            Email: <span id="myEmail">chavez.amiel.diamond@gmail.com (dont spam pls)</span>
+          </p>
+        </form>
+      </div>
+
+      <div class="col-lg-6">
+        <!-- Added links-card + sticker link -->
+        <div class="profile-card h-100 links-card">
+          <span class="card-badge">Links</span>
+
+          <!-- Clickable image -> resources.html -->
+          <a class="refs-sticker" href="resources.html" aria-label="Open Resources and References page">
+            <!-- Rename your file to AD-Smol.png (recommended). If not, use AD%20Smol.png -->
+            <img src="assets/img/AD-Smol.png" alt="Click me for references">
+          </a>
+
+          <h3 class="h5">Find me online</h3>
+          <ul class="mb-0">
+            <li><a href="#" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+          </ul>
+
+          <p class="text-muted mt-3 mb-0"></p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
+</section>
+
 
   </main>
 

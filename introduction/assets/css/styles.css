@@ -271,5 +271,40 @@ ul li::before{
   transform: translateY(-1px);
 }
 
+.links-card{
+  position: relative;
+  overflow: hidden; 
+}
+
+/* Clickable sticker image */
+.refs-sticker{
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  width: min(190px, 40%); 
+  display: block;
+  text-decoration: none;
+}
+
+.refs-sticker img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 14px;
+  filter: drop-shadow(0 10px 18px rgba(14,165,233,0.25));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.refs-sticker:hover img{
+  transform: translateY(-2px) scale(1.02);
+  filter: drop-shadow(0 14px 22px rgba(14,165,233,0.35));
+}
+
+@media (max-width: 768px){
+  .refs-sticker{
+    width: min(160px, 50%);
+  }
+}
+
 
 
