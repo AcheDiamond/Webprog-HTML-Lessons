@@ -15,7 +15,7 @@
   --shadow: 0 12px 28px rgba(14, 165, 233, 0.14);
 }
 
-* { box-sizing: border-box; }
+*{ box-sizing: border-box; }
 
 body{
   background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
@@ -62,7 +62,7 @@ body{
   color: var(--deep);
   animation: blink 1s steps(1) infinite;
 }
-@keyframes blink { 50% { opacity: 0; } }
+@keyframes blink{ 50%{ opacity: 0; } }
 
 /* Sections */
 .content-section{ padding: 60px 0; }
@@ -274,134 +274,10 @@ ul li::before{
 }
 
 /* ================================
-   Links card: HERO sticker (References)
+   Contact Links Card + Social list + Sticker
    ================================ */
-.links-card{
-  position: relative;
-  overflow: visible;
-  padding-bottom: 260px; /
-}
 
-.refs-sticker{
-  position: absolute;
-  right: -60px;          
-  bottom: -60px;         
-  width: 70%;            
-  max-width: 520px;      
-  min-width: 320px;      
-  display: block;
-  text-decoration: none;
-  z-index: 2;
-}
-
-.refs-sticker img{
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 22px;
-
-  background: rgba(255,255,255,0.95);
-  padding: 12px;
-
-  filter: drop-shadow(0 22px 38px rgba(14,165,233,0.35));
-  transform-origin: 70% 80%;
-  transform: rotate(-5deg);
-
-  animation: stickerPulse 3.2s ease-in-out infinite;
-  transition: transform 0.22s ease, filter 0.22s ease;
-}
-
-.refs-sticker:hover img{
-  transform: rotate(-2deg) translateY(-12px) scale(1.08);
-  filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
-  animation: none;
-}
-
-.refs-sticker:focus-visible img{
-  outline: 3px solid rgba(14,165,233,0.55);
-  outline-offset: 6px;
-}
-
-@keyframes stickerPulse{
-  0%, 100% { transform: rotate(-5deg) scale(1); }
-  50%      { transform: rotate(-5deg) scale(1.04); }
-}
-
-@media (max-width: 768px){
-  .refs-sticker{
-    width: 85%;
-    right: -30px;
-    bottom: -30px;
-    min-width: 0;
-    max-width: 420px;
-  }
-  .links-card{
-    padding-bottom: 320px; 
-  }
-}
-/* ========== CONTACT LINKS CARD (sticker-safe) ========== */
-.links-card{
-  position: relative;
-  overflow: visible;
-  /* reserve space so content does not go under sticker */
-  padding-right: clamp(220px, 38%, 360px);
-  min-height: 320px;
-}
-
-/* On small screens, sticker stacks lower so we don't need right padding */
-@media (max-width: 768px){
-  .links-card{
-    padding-right: 2rem;     /* normal card padding */
-    padding-bottom: 240px;   /* space for sticker at bottom */
-    min-height: auto;
-  }
-}
-
-/* Sticker */
-.refs-sticker{
-  position: absolute;
-  right: -28px;
-  bottom: -28px;
-  width: min(520px, 58%);   /* bigger */
-  display: block;
-  text-decoration: none;
-  z-index: 2;
-}
-
-@media (max-width: 768px){
-  .refs-sticker{
-    width: min(420px, 82%);
-    right: -16px;
-    bottom: -16px;
-  }
-}
-
-.refs-sticker img{
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 18px;
-  background: rgba(255,255,255,0.95);
-  padding: 10px;
-  filter: drop-shadow(0 18px 30px rgba(14,165,233,0.35));
-  transform-origin: 70% 80%;
-  transform: rotate(-4deg);
-  animation: stickerPulse 3.2s ease-in-out infinite;
-  transition: transform 0.22s ease, filter 0.22s ease;
-}
-
-.refs-sticker:hover img{
-  transform: rotate(-2deg) translateY(-10px) scale(1.06);
-  filter: drop-shadow(0 26px 42px rgba(14,165,233,0.48));
-  animation: none;
-}
-
-@keyframes stickerPulse{
-  0%, 100% { transform: rotate(-4deg) scale(1); }
-  50%      { transform: rotate(-4deg) scale(1.03); }
-}
-
-/* ========== LINKS LIST ========== */
+/* Links list styles */
 .social-list{
   display: grid;
   gap: 10px;
@@ -442,7 +318,6 @@ ul li::before{
   text-decoration: none;
   white-space: nowrap;
 }
-
 .social-link:hover{ text-decoration: underline; }
 
 .social-handle{
@@ -481,3 +356,77 @@ ul li::before{
   backdrop-filter: blur(8px);
 }
 .copy-toast.show{ display: inline-flex; }
+
+/* Links card: reserve space on desktop so text never goes under sticker */
+.links-card{
+  position: relative;
+  overflow: visible;
+  padding-right: clamp(220px, 38%, 360px);
+  min-height: 320px;
+}
+
+/* Sticker (desktop: playful overlap) */
+.refs-sticker{
+  position: absolute;
+  right: -60px;
+  bottom: -60px;
+  width: min(520px, 58%);
+  display: block;
+  text-decoration: none;
+  z-index: 2;
+}
+
+.refs-sticker img{
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 22px;
+
+  background: rgba(255,255,255,0.95);
+  padding: 12px;
+
+  filter: drop-shadow(0 22px 38px rgba(14,165,233,0.35));
+  transform-origin: 70% 80%;
+  transform: rotate(-5deg);
+
+  animation: stickerPulse 3.2s ease-in-out infinite;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.refs-sticker:hover img{
+  transform: rotate(-2deg) translateY(-12px) scale(1.08);
+  filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
+  animation: none;
+}
+
+.refs-sticker:focus-visible img{
+  outline: 3px solid rgba(14,165,233,0.55);
+  outline-offset: 6px;
+}
+
+@keyframes stickerPulse{
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50%      { transform: rotate(-5deg) scale(1.04); }
+}
+
+@media (max-width: 768px){
+  .links-card{
+    padding-right: 2rem;
+    min-height: auto;
+  }
+
+  .social-list{
+    padding-bottom: 180px;
+  }
+
+  .refs-sticker{
+    right: 50%;
+    bottom: 18px;
+    transform: translateX(50%);
+    width: min(360px, 88%);
+  }
+
+  .refs-sticker img{
+    transform: rotate(-2deg);
+  }
+}
