@@ -1,16 +1,7 @@
-// =========================
-// Main JS (Portfolio)
-// - Typing effect
-// - Contact form demo + copy email
-// - Navbar smooth-scroll fix (mobile collapse + sticky offset)
-// =========================
-
-/* ========= Typing effect ========= */
 const roles = [
-  "Computer Science student",
-  "Cybersecurity enthusiast",
-  "Gamer",
-  "Cat & dog enjoyer"
+  "Computer Science Student",
+  "Bed Rotting Enjoyer",
+  "Chopped Asian boi"
 ];
 
 let roleIndex = 0;
