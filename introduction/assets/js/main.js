@@ -5,8 +5,8 @@ let wi = 0;
 let ci = 0;
 let deleting = false;
 
-const typingSpeed = 60;     // typing speed (lower = faster)
-const deletingSpeed = 120;  // 🔴 SLOWER delete (increase to slow more)
+const typingSpeed = 60;     
+const deletingSpeed = 120;  
 const pauseAfterType = 1200;
 const pauseAfterDelete = 400;
 
