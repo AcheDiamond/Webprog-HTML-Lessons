@@ -11,7 +11,7 @@ let charIndex = 0;
 let deleting = false;
 
 const typingSpeed = 55;
-const deletingSpeed = 90;   // 👈 increase this to slow deletion
+const deletingSpeed = 90;   
 const pauseAfterType = 900;
 const pauseAfterDelete = 250;
 
@@ -124,26 +124,4 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         doScroll();
       }
-
-      // --- Testing ---
-  const initScrollSpy = () => {
-    if (!window.bootstrap) return;
-
-    const old = window.bootstrap.ScrollSpy.getInstance(document.body);
-    if (old) old.dispose();
-
-    const offset = getOffset();
-
-    new window.bootstrap.ScrollSpy(document.body, {
-      target: "#siteNav",
-      rootMargin: `-${offset}px 0px -60% 0px`
-    });
-  };
-    applyScrollOffsets();
-  initScrollSpy();
-
-  window.addEventListener("resize", () => {
-    applyScrollOffsets();
-    initScrollSpy();
-  });
 
