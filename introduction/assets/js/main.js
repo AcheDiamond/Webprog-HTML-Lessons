@@ -62,3 +62,22 @@ document.getElementById("copyEmailBtn").addEventListener("click", async () => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const nav = document.getElementById("siteNav");
+
+  const offset = nav ? nav.offsetHeight + 16 : 110;
+
+  document.documentElement.style.scrollPaddingTop = offset + "px";
+  document.querySelectorAll("header[id], section[id]").forEach((el) => {
+    el.style.scrollMarginTop = offset + "px";
+  });
+
+  const existing = bootstrap.ScrollSpy.getInstance(document.body);
+  if (existing) existing.dispose();
+
+  new bootstrap.ScrollSpy(document.body, {
+    target: "#siteNav",
+    offset: offset
+  });
+});
+
