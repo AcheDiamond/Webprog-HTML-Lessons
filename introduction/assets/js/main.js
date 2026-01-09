@@ -1,21 +1,44 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+const typingEl = document.getElementById("typingText");
+const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
 
-  const typingEl = document.getElementById("typingText");
-  const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
-  let wi = 0, ci = 0;
-  function typeLoop() {
-    if (!typingEl) return;
-    typingEl.textContent = words[wi].slice(0, ci++);
-    if (ci <= words[wi].length) requestAnimationFrame(typeLoop);
-    else setTimeout(() => {
-      ci = 0;
+let wi = 0;
+let ci = 0;
+let deleting = false;
+
+const typingSpeed = 60;     // typing speed (lower = faster)
+const deletingSpeed = 120;  // 🔴 SLOWER delete (increase to slow more)
+const pauseAfterType = 1200;
+const pauseAfterDelete = 400;
+
+function typeLoop() {
+  if (!typingEl) return;
+
+  const word = words[wi];
+
+  if (!deleting) {
+    // Typing
+    typingEl.textContent = word.slice(0, ci++);
+    if (ci <= word.length) {
+      setTimeout(typeLoop, typingSpeed);
+    } else {
+      setTimeout(() => (deleting = true), pauseAfterType);
+      setTimeout(typeLoop, pauseAfterType);
+    }
+  } else {
+    // Deleting
+    typingEl.textContent = word.slice(0, ci--);
+    if (ci >= 0) {
+      setTimeout(typeLoop, deletingSpeed);
+    } else {
+      deleting = false;
       wi = (wi + 1) % words.length;
-      requestAnimationFrame(typeLoop);
-    }, 1200);
+      ci = 0;
+      setTimeout(typeLoop, pauseAfterDelete);
+    }
   }
-  typeLoop();
+}
+
+typeLoop();
 
   const nav = document.getElementById("siteNav");
   if (nav && window.bootstrap?.ScrollSpy) {
