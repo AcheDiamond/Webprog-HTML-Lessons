@@ -17,12 +17,6 @@
 
 *{ box-sizing: border-box; }
 
-html{
-  scroll-behavior: smooth;
-  /* fallback; JS will compute exact offset */
-  scroll-padding-top: 90px;
-}
-
 body{
   background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
   min-height: 100vh;
@@ -85,7 +79,7 @@ body{
   margin: 6px 0 0 0;
 }
 
-/* Cards (consistent everywhere) */
+/* Cards */
 .profile-card{
   background: var(--card);
   border-radius: 16px;
@@ -128,7 +122,7 @@ p, li{
   height: auto;
 }
 
-/* Lists */
+/* Lists (arrow style) */
 ul{ list-style: none; padding-left: 0; }
 ul li::before{
   content: "▸";
@@ -138,7 +132,7 @@ ul li::before{
   width: 1.5em;
 }
 
-/* CSS GRID */
+/* Quick intro grid + skills grid */
 .quick-grid{
   display: grid;
   grid-template-columns: 1fr;
@@ -166,17 +160,15 @@ ul li::before{
   color: var(--deep);
 }
 
+/* Footer */
+.footer-soft{ background: rgba(255,255,255,0.55); }
+
 @media (min-width: 768px){
   .quick-grid{ grid-template-columns: 1fr 1fr; }
   .skills-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
-/* Footer */
-.footer-soft{ background: rgba(255,255,255,0.55); }
-
-/* ================================
-   Wavy gradient background (Hobbies)
-   ================================ */
+/* Hobbies background */
 .hobbies-bg{
   position: relative;
   overflow: hidden;
@@ -190,7 +182,8 @@ ul li::before{
     radial-gradient(1200px 300px at 10% 10%, rgba(186,230,253,0.9), transparent 60%),
     radial-gradient(1000px 260px at 80% 20%, rgba(224,242,254,0.9), transparent 65%),
     radial-gradient(900px 240px at 30% 80%, rgba(147,197,253,0.8), transparent 60%),
-    linear-gradient(180deg,
+    linear-gradient(
+      180deg,
       rgba(240,249,255,0.95) 0%,
       rgba(224,242,254,0.95) 50%,
       rgba(186,230,253,0.95) 100%
@@ -202,9 +195,7 @@ ul li::before{
   z-index: 1;
 }
 
-/* ================================
-   Navbar pill buttons
-   ================================ */
+/* Navbar pills */
 .navbar .nav-link{
   padding: 6px 14px;
   border-radius: 999px;
@@ -228,9 +219,10 @@ ul li::before{
   font-weight: 700;
 }
 
-/* ================================
-   Vue Gallery UI (matches your theme)
-   ================================ */
+/* =========================
+   Vue Gallery (carousel)
+   FIX: Use aspect-ratio so it behaves correctly on zoom/mobile
+   ========================= */
 .carousel-wrap{
   display: grid;
   grid-template-columns: 44px 1fr 44px;
@@ -239,17 +231,23 @@ ul li::before{
 }
 
 .carousel-frame{
-  height: clamp(220px, 38vh, 520px);
+  /* zoom-safe sizing */
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 220px;
+  max-height: 520px;
+
   border-radius: 14px;
   overflow: hidden;
   background: #f0f9ff;
   border: 3px solid rgba(14,165,233,0.18);
   box-shadow: 0 10px 18px rgba(14,165,233,0.18);
+
   display: grid;
   place-items: center;
 }
 
-.carousel-frame .gallery-img{
+.carousel-frame img{
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -294,7 +292,7 @@ ul li::before{
   background: rgba(2,132,199,0.9);
 }
 
-/* Guestbook message cards */
+/* Guestbook cards (if you use it) */
 .guest-entry{
   border: 1px solid rgba(14,165,233,0.16);
   background: rgba(255,255,255,0.75);
@@ -303,51 +301,38 @@ ul li::before{
   margin-bottom: 10px;
 }
 
-/* ================================
-   Contact Links Card + Social list + Sticker
-   ================================ */
+/* =========================
+   Contact links + sticker
+   ========================= */
 .social-list{
   display: grid;
   gap: 10px;
   margin: 0;
   padding: 0;
 }
-
 .social-item{
   list-style: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-
   border: 1px solid rgba(14,165,233,0.18);
   background: rgba(255,255,255,0.75);
   border-radius: 14px;
   padding: 10px 12px;
 }
-
 .social-left{
   display: flex;
   align-items: center;
   gap: 10px;
   min-width: 0;
 }
-
-.social-icon{
-  width: 22px;
-  height: 22px;
-  flex: 0 0 auto;
-  color: #0284c7;
-}
-
 .social-link{
   color: #0284c7;
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
 }
-.social-link:hover{ text-decoration: underline; }
-
 .social-handle{
   color: #475569;
   font-weight: 600;
@@ -360,7 +345,6 @@ ul li::before{
 @media (max-width: 576px){
   .social-handle{ max-width: 18ch; }
 }
-
 .copy-btn{
   border-radius: 999px;
   padding: 6px 10px;
@@ -368,23 +352,6 @@ ul li::before{
   white-space: nowrap;
 }
 
-.copy-toast{
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 5;
-  display: none;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(14,165,233,0.12);
-  border: 1px solid rgba(14,165,233,0.25);
-  color: #0c4a6e;
-  font-weight: 700;
-  backdrop-filter: blur(8px);
-}
-.copy-toast.show{ display: inline-flex; }
-
-/* Desktop: reserve space so links never go under sticker */
 .links-card{
   position: relative;
   overflow: visible;
@@ -408,14 +375,11 @@ ul li::before{
   height: auto;
   display: block;
   border-radius: 22px;
-
   background: rgba(255,255,255,0.95);
   padding: 12px;
-
   filter: drop-shadow(0 22px 38px rgba(14,165,233,0.35));
   transform-origin: 70% 80%;
   transform: rotate(-5deg);
-
   animation: stickerPulse 3.2s ease-in-out infinite;
   transition: transform 0.22s ease, filter 0.22s ease;
 }
@@ -424,11 +388,6 @@ ul li::before{
   transform: rotate(-2deg) translateY(-12px) scale(1.08);
   filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
   animation: none;
-}
-
-.links-card .refs-sticker:focus-visible img{
-  outline: 3px solid rgba(14,165,233,0.55);
-  outline-offset: 6px;
 }
 
 @keyframes stickerPulse{
@@ -452,3 +411,6 @@ ul li::before{
     transform: rotate(-2deg);
   }
 }
+
+html{ scroll-padding-top: 90px; }
+section[id], header[id]{ scroll-margin-top: 90px; }
