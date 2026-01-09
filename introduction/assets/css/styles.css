@@ -277,7 +277,6 @@ ul li::before{
    Contact Links Card + Social list + Sticker
    ================================ */
 
-/* Links list styles */
 .social-list{
   display: grid;
   gap: 10px;
@@ -356,32 +355,7 @@ ul li::before{
   backdrop-filter: blur(8px);
 }
 .copy-toast.show{ display: inline-flex; }
-<<<<<<< HEAD
 
-@media (max-width: 768px){
-  .links-card{
-    padding-right: 2rem;
-    min-height: auto;
-  }
-
-  .refs-sticker{
-    position: static !important;     
-    transform: none !important;
-    width: min(360px, 92%) !important;
-    margin: 18px auto 0 auto;        
-  }
-
-  .refs-sticker img{
-    transform: rotate(-2deg) !important;
-  }
-
-  .social-list{
-    padding-bottom: 0 !important;
-  }
-}
-=======
-
-/* Links card: reserve space on desktop so text never goes under sticker */
 .links-card{
   position: relative;
   overflow: visible;
@@ -389,8 +363,7 @@ ul li::before{
   min-height: 320px;
 }
 
-/* Sticker (desktop: playful overlap) */
-.refs-sticker{
+.links-card .refs-sticker{
   position: absolute;
   right: -60px;
   bottom: -60px;
@@ -400,7 +373,7 @@ ul li::before{
   z-index: 2;
 }
 
-.refs-sticker img{
+.links-card .refs-sticker img{
   width: 100%;
   height: auto;
   display: block;
@@ -417,13 +390,13 @@ ul li::before{
   transition: transform 0.22s ease, filter 0.22s ease;
 }
 
-.refs-sticker:hover img{
+.links-card .refs-sticker:hover img{
   transform: rotate(-2deg) translateY(-12px) scale(1.08);
   filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
   animation: none;
 }
 
-.refs-sticker:focus-visible img{
+.links-card .refs-sticker:focus-visible img{
   outline: 3px solid rgba(14,165,233,0.55);
   outline-offset: 6px;
 }
@@ -433,25 +406,19 @@ ul li::before{
   50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
-/* ===== FINAL MOBILE FIX: sticker must NOT overlay links ===== */
 @media (max-width: 768px){
   .links-card{
     padding-right: 2rem;
     min-height: auto;
   }
 
-  .refs-sticker{
-    position: static !important;     
-    transform: none !important;
-    width: min(360px, 92%) !important;
-    margin: 18px auto 0 auto;        
+  .links-card .refs-sticker{
+    position: static;             
+    width: min(360px, 92%);
+    margin: 18px auto 0 auto;
   }
 
-  .refs-sticker img{
-    transform: rotate(-2deg) !important;
-  }
-
-  .social-list{
-    padding-bottom: 0 !important;
+  .links-card .refs-sticker img{
+    transform: rotate(-2deg);
   }
 }
