@@ -1,3 +1,5 @@
+// vue-app.js
+
 const GalleryCarousel = {
   template: `
     <div>
@@ -14,7 +16,7 @@ const GalleryCarousel = {
         <button class="carousel-btn" type="button" @click="next" aria-label="Next">›</button>
       </div>
 
-      <div class="carousel-dots">
+      <div class="carousel-dots" aria-label="Gallery dots">
         <span v-for="n in images.length"
               :key="n"
               class="dot"
@@ -86,6 +88,7 @@ const GuestbookForm = {
 
         <p v-if="status" class="small mt-3 mb-0" role="status" aria-live="polite">{{ status }}</p>
         <p class="small text-muted mt-2 mb-0">
+          Demo guestbook: saved locally in your browser using localStorage.
         </p>
       </form>
 

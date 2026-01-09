@@ -1,83 +1,116 @@
-// Typing intro
-const roles = [
-  "Computer Science Student",
-  "Cybersecurity & Forensics Learner",
-  "Chopped Asian boi"
-];
-
-const typingEl = document.getElementById("typingText");
-
-let roleIndex = 0;
-let charIndex = 0;
-let deleting = false;
-
-function typeLoop() {
-  const current = roles[roleIndex];
-
-  if (!deleting) {
-    typingEl.textContent = current.slice(0, charIndex++);
-    if (charIndex > current.length) {
-      deleting = true;
-      setTimeout(typeLoop, 900);
-      return;
-    }
-  } else {
-    typingEl.textContent = current.slice(0, charIndex--);
-    if (charIndex < 0) {
-      deleting = false;
-      roleIndex = (roleIndex + 1) % roles.length;
-      setTimeout(typeLoop, 250);
-      return;
-    }
-  }
-  setTimeout(typeLoop, deleting ? 35 : 55);
-}
-typeLoop();
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-const form = document.getElementById("contactForm");
-const statusEl = document.getElementById("formStatus");
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (!form.checkValidity()) {
-    form.classList.add("was-validated");
-    statusEl.textContent = "Please fix the highlighted fields.";
-    return;
-  }
-
-  form.classList.remove("was-validated");
-  statusEl.textContent = "Validated successfully! (Demo only — no backend.)";
-  form.reset();
-});
-
-document.getElementById("copyEmailBtn").addEventListener("click", async () => {
-  const email = document.getElementById("myEmail").textContent.trim();
-  try {
-    await navigator.clipboard.writeText(email);
-    statusEl.textContent = "Email copied to clipboard!";
-  } catch {
-    statusEl.textContent = "Copy failed (browser blocked clipboard).";
-  }
-});
-
+// main.js
 document.addEventListener("DOMContentLoaded", () => {
+  // Year
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Typing effect (safe)
+  const typingEl = document.getElementById("typingText");
+  const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
+  let wi = 0, ci = 0;
+  function typeLoop() {
+    if (!typingEl) return;
+    typingEl.textContent = words[wi].slice(0, ci++);
+    if (ci <= words[wi].length) requestAnimationFrame(typeLoop);
+    else setTimeout(() => {
+      ci = 0;
+      wi = (wi + 1) % words.length;
+      requestAnimationFrame(typeLoop);
+    }, 1200);
+  }
+  typeLoop();
+
+  // Bootstrap ScrollSpy (safe)
   const nav = document.getElementById("siteNav");
+  if (nav && window.bootstrap?.ScrollSpy) {
+    const existing = bootstrap.ScrollSpy.getInstance(document.body);
+    if (existing) existing.dispose();
 
-  const offset = nav ? nav.offsetHeight + 16 : 110;
+    new bootstrap.ScrollSpy(document.body, {
+      target: "#siteNav",
+      offset: nav.offsetHeight + 20
+    });
+  }
 
-  document.documentElement.style.scrollPaddingTop = offset + "px";
-  document.querySelectorAll("header[id], section[id]").forEach((el) => {
-    el.style.scrollMarginTop = offset + "px";
+  const navLinks = document.querySelectorAll('#siteNav a[href^="#"]');
+  navLinks.forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const href = a.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const target = document.querySelector(href);
+      if (!target) return;
+
+      e.preventDefault();
+
+      const navH = nav ? nav.offsetHeight : 0;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+
+      window.scrollTo({ top: y, behavior: "smooth" });
+
+      // Close mobile menu after click
+      const collapse = document.getElementById("navLinks");
+      if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
+        const bsCollapse = bootstrap.Collapse.getInstance(collapse) || new bootstrap.Collapse(collapse, { toggle: false });
+        bsCollapse.hide();
+      }
+    });
   });
 
-  const existing = bootstrap.ScrollSpy.getInstance(document.body);
-  if (existing) existing.dispose();
+  // Contact form validation (demo)
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-  new bootstrap.ScrollSpy(document.body, {
-    target: "#siteNav",
-    offset: offset
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        if (status) status.textContent = "Please fix the errors above.";
+        return;
+      }
+
+      form.classList.add("was-validated");
+      if (status) status.textContent = "Message sent (demo). Thank you!";
+      form.reset();
+      form.classList.remove("was-validated");
+    });
+  }
+
+  // Copy email button
+  const copyEmailBtn = document.getElementById("copyEmailBtn");
+  const myEmail = document.getElementById("myEmail");
+  if (copyEmailBtn && myEmail) {
+    copyEmailBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(myEmail.textContent.trim());
+        if (status) status.textContent = "Email copied!";
+      } catch {
+        if (status) status.textContent = "Copy failed — please copy manually.";
+      }
+    });
+  }
+
+  // Copy social handles (buttons)
+  const toast = document.getElementById("copyToast");
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const value = btn.getAttribute("data-copy") || "";
+      try {
+        await navigator.clipboard.writeText(value);
+        if (toast) {
+          toast.textContent = `Copied: ${value}`;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
+      } catch {
+        if (toast) {
+          toast.textContent = "Copy failed";
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
+      }
+    });
   });
 });
-
