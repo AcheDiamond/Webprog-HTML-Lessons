@@ -230,3 +230,13 @@ ul li::before{
   opacity: 1 !important;
 }
 
+#hobbyCarousel .carousel-control-prev,
+#hobbyCarousel .carousel-control-next{
+  width: 8%;
+}
+#hobbyCarousel .carousel-control-prev:hover .carousel-control-prev-icon,
+#hobbyCarousel .carousel-control-next:hover .carousel-control-next-icon{
+  filter: invert(38%) sepia(95%) saturate(520%) hue-rotate(170deg) brightness(90%) contrast(105%);
+}
+
+
