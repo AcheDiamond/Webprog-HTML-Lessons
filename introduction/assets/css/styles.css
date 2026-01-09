@@ -193,3 +193,33 @@ ul li::before{
   object-position: center;
   display: block;
 }
+
+.hobbies-bg{
+  position: relative;
+  overflow: hidden;
+}
+
+.hobbies-bg::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+
+  background:
+    radial-gradient(1200px 300px at 10% 10%, rgba(186,230,253,0.9), transparent 60%),
+    radial-gradient(1000px 260px at 80% 20%, rgba(224,242,254,0.9), transparent 65%),
+    radial-gradient(900px 240px at 30% 80%, rgba(147,197,253,0.8), transparent 60%),
+    linear-gradient(
+      180deg,
+      rgba(240,249,255,0.95) 0%,
+      rgba(224,242,254,0.95) 50%,
+      rgba(186,230,253,0.95) 100%
+    );
+
+  pointer-events: none;
+}
+
+.hobbies-bg > .container{
+  position: relative;
+  z-index: 1;
+}
