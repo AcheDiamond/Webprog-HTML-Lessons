@@ -279,9 +279,9 @@ ul li::before{
 /* Clickable sticker image */
 .refs-sticker{
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  width: min(190px, 40%); 
+  right: 18px;
+  bottom: 18px;
+  width: min(260px, 55%);   /* ⬅ bigger but responsive */
   display: block;
   text-decoration: none;
 }
