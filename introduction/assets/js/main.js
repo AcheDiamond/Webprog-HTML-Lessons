@@ -1,57 +1,76 @@
-const typingEl = document.getElementById("typingText");
-const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
+document.addEventListener("DOMContentLoaded", () => {
+  // Footer year
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-let wi = 0;
-let ci = 0;
-let deleting = false;
+  // =========================
+  // Typing effect (Hero)
+  // =========================
+  const typingEl = document.getElementById("typingText");
+  const words = ["Chopped Asian boi", "Computer Science Student", "Blue Lover"];
 
-const typingSpeed = 60;     
-const deletingSpeed = 120;  
-const pauseAfterType = 1200;
-const pauseAfterDelete = 400;
+  let wi = 0;
+  let ci = 0;
+  let deleting = false;
 
-function typeLoop() {
-  if (!typingEl) return;
+  const typingSpeed = 70;
+  const deletingSpeed = 45;
+  const pauseAfterType = 1100;
+  const pauseAfterDelete = 350;
 
-  const word = words[wi];
+  function typeLoop() {
+    if (!typingEl) return;
 
-  if (!deleting) {
-    // Typing
-    typingEl.textContent = word.slice(0, ci++);
-    if (ci <= word.length) {
-      setTimeout(typeLoop, typingSpeed);
+    const word = words[wi];
+
+    if (!deleting) {
+      typingEl.textContent = word.slice(0, ci + 1);
+      ci++;
+
+      if (ci < word.length) {
+        setTimeout(typeLoop, typingSpeed);
+      } else {
+        // Pause then start deleting
+        setTimeout(() => {
+          deleting = true;
+          typeLoop();
+        }, pauseAfterType);
+      }
     } else {
-      setTimeout(() => (deleting = true), pauseAfterType);
-      setTimeout(typeLoop, pauseAfterType);
-    }
-  } else {
-    // Deleting
-    typingEl.textContent = word.slice(0, ci--);
-    if (ci >= 0) {
-      setTimeout(typeLoop, deletingSpeed);
-    } else {
-      deleting = false;
-      wi = (wi + 1) % words.length;
-      ci = 0;
-      setTimeout(typeLoop, pauseAfterDelete);
+      typingEl.textContent = word.slice(0, ci - 1);
+      ci--;
+
+      if (ci > 0) {
+        setTimeout(typeLoop, deletingSpeed);
+      } else {
+        // Move to next word
+        deleting = false;
+        wi = (wi + 1) % words.length;
+
+        setTimeout(typeLoop, pauseAfterDelete);
+      }
     }
   }
-}
 
-typeLoop();
+  typeLoop();
 
   const nav = document.getElementById("siteNav");
+  const navH = nav ? nav.offsetHeight : 0;
+
+  document.documentElement.style.scrollPaddingTop = `${navH + 12}px`;
+
   if (nav && window.bootstrap?.ScrollSpy) {
     const existing = bootstrap.ScrollSpy.getInstance(document.body);
     if (existing) existing.dispose();
 
     new bootstrap.ScrollSpy(document.body, {
       target: "#siteNav",
-      offset: nav.offsetHeight + 20
+      offset: navH + 12
     });
   }
 
-  const navLinks = document.querySelectorAll('#siteNav a[href^="#"]');
+  const navLinks = document.querySelectorAll('#siteNav a.nav-link[href^="#"]');
+
   navLinks.forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
@@ -62,23 +81,28 @@ typeLoop();
 
       e.preventDefault();
 
-      const navH = nav ? nav.offsetHeight : 0;
       const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
-
       window.scrollTo({ top: y, behavior: "smooth" });
 
-      // Close mobile menu after click
+      navLinks.forEach((x) => x.classList.remove("active"));
+      a.classList.add("active");
+
       const collapse = document.getElementById("navLinks");
       if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
-        const bsCollapse = bootstrap.Collapse.getInstance(collapse) || new bootstrap.Collapse(collapse, { toggle: false });
+        const bsCollapse =
+          bootstrap.Collapse.getInstance(collapse) ||
+          new bootstrap.Collapse(collapse, { toggle: false });
         bsCollapse.hide();
       }
     });
   });
 
+  // =========================
   // Contact form validation (demo)
+  // =========================
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
+
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -100,6 +124,7 @@ typeLoop();
   // Copy email button
   const copyEmailBtn = document.getElementById("copyEmailBtn");
   const myEmail = document.getElementById("myEmail");
+
   if (copyEmailBtn && myEmail) {
     copyEmailBtn.addEventListener("click", async () => {
       try {
@@ -113,6 +138,7 @@ typeLoop();
 
   // Copy social handles (buttons)
   const toast = document.getElementById("copyToast");
+
   document.querySelectorAll("[data-copy]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       const value = btn.getAttribute("data-copy") || "";

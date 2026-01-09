@@ -19,7 +19,6 @@
 
 html{
   scroll-behavior: smooth;
-  /* fallback; JS will compute exact offset */
   scroll-padding-top: 90px;
 }
 
@@ -128,15 +127,16 @@ p, li{
   height: auto;
 }
 
-/* Lists */
-ul{ list-style: none; padding-left: 0; }
-ul li::before{
+main ul{ list-style: none; padding-left: 0; }
+main ul li::before{
   content: "▸";
   color: var(--brand1);
   font-weight: 900;
   display: inline-block;
   width: 1.5em;
 }
+
+.navbar-nav li::before{ content: none !important; }
 
 /* CSS GRID */
 .quick-grid{
@@ -229,7 +229,7 @@ ul li::before{
 }
 
 /* ================================
-   Vue Gallery UI (matches your theme)
+   Vue Gallery UI
    ================================ */
 .carousel-wrap{
   display: grid;
@@ -249,7 +249,6 @@ ul li::before{
   place-items: center;
 }
 
-/* ✅ IMPORTANT FIX: make the Vue image fill the frame */
 .carousel-frame .gallery-img{
   width: 100%;
   height: 100%;
@@ -385,23 +384,30 @@ ul li::before{
 }
 .copy-toast.show{ display: inline-flex; }
 
-/* Desktop: reserve space so links never go under sticker */
 .links-card{
   position: relative;
   overflow: visible;
-  padding-right: clamp(220px, 38%, 360px);
+
+  padding-right: clamp(240px, 40%, 380px);
   min-height: 320px;
 }
 
-/* Sticker (desktop overlap) */
+.links-card > :not(.refs-sticker):not(.copy-toast){
+  position: relative;
+  z-index: 2;
+}
+
 .links-card .refs-sticker{
   position: absolute;
-  right: -60px;
-  bottom: -60px;
-  width: min(520px, 58%);
+  right: -40px;
+  bottom: -40px;
+
+  width: clamp(220px, 52%, 360px);
+
   display: block;
   text-decoration: none;
-  z-index: 2;
+
+  z-index: 1;
 }
 
 .links-card .refs-sticker img{
@@ -437,7 +443,6 @@ ul li::before{
   50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
-/* ✅ Mobile: sticker MUST NOT overlay the links */
 @media (max-width: 768px){
   .links-card{
     padding-right: 2rem;
