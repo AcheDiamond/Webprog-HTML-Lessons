@@ -217,102 +217,13 @@
             </div>
           </div>
         </div>
+
+        <!-- Vue Gallery Component -->
+        <div id="vueGallery" class="profile-card mt-4">
+          <gallery-carousel></gallery-carousel>
+          <p class="small text-muted mt-2 mb-0">Swipe on mobile or use arrows on desktop.</p>
+        </div>
       </div>
-
-      <!-- Carousel -->
-      <div class="profile-card mt-4">
-  <span class="card-badge">Gallery</span>
-  <h3 class="h5 mb-3">Hobbies Photo Gallery</h3>
-
-  <div id="hobbyCarousel"
-       class="carousel slide"
-       data-bs-ride="carousel"
-       data-bs-wrap="true"
-       data-bs-touch="true"
-       data-bs-interval="2500"
-       data-bs-pause="hover">
-
-    <div class="carousel-inner">
-
-      <div class="carousel-item active">
-        <img src="assets/img/gallery/1.png" class="d-block w-100 gallery-img" alt="Hobby photo 1">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/2.png" class="d-block w-100 gallery-img" alt="Hobby photo 2">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/3.png" class="d-block w-100 gallery-img" alt="Hobby photo 3">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/4.png" class="d-block w-100 gallery-img" alt="Hobby photo 4">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/5.png" class="d-block w-100 gallery-img" alt="Hobby photo 5">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/6.png" class="d-block w-100 gallery-img" alt="Hobby photo 6">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/7.png" class="d-block w-100 gallery-img" alt="Hobby photo 7">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/8.png" class="d-block w-100 gallery-img" alt="Hobby photo 8">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/9.png" class="d-block w-100 gallery-img" alt="Hobby photo 9">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/10.png" class="d-block w-100 gallery-img" alt="Hobby photo 10">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/11.png" class="d-block w-100 gallery-img" alt="Hobby photo 11">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/12.png" class="d-block w-100 gallery-img" alt="Hobby photo 12">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/13.png" class="d-block w-100 gallery-img" alt="Hobby photo 13">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/14.png" class="d-block w-100 gallery-img" alt="Hobby photo 14">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/15.png" class="d-block w-100 gallery-img" alt="Hobby photo 15">
-      </div>
-
-      <div class="carousel-item">
-        <img src="assets/img/gallery/16.png" class="d-block w-100 gallery-img" alt="Hobby photo 16">
-      </div>
-
-    </div>
-
-    <button class="carousel-control-prev" type="button"
-            data-bs-target="#hobbyCarousel" data-bs-slide="prev" aria-label="Previous slide">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    </button>
-
-    <button class="carousel-control-next" type="button"
-            data-bs-target="#hobbyCarousel" data-bs-slide="next" aria-label="Next slide">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    </button>
-  </div>
-
-  <p class="small text-muted mt-2 mb-0">Swipe on mobile or use arrows on desktop.</p>
-</div>
     </section>
 
     <!-- Goals -->
@@ -333,90 +244,64 @@
       </div>
     </section>
 
-<section id="contact" class="content-section section-alt">
-  <div class="container">
-    <div class="section-header">
-      <h2 class="section-title">Contact</h2>
-      <p class="section-subtitle">Client-side validation + copy email feature.</p>
-    </div>
+    <!-- Contact -->
+    <section id="contact" class="content-section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Contact</h2>
+          <p class="section-subtitle">Client-side validation + copy email feature.</p>
+        </div>
 
-    <div class="row g-4">
-      <div class="col-lg-6">
-        <form class="profile-card" id="contactForm" novalidate>
-          <span class="card-badge">Message</span>
-
-          <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input id="name" class="form-control" type="text" required>
-            <div class="invalid-feedback">Please enter your name.</div>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div id="vueGuestbook" class="profile-card">
+              <guestbook-form></guestbook-form>
+            </div>
           </div>
 
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input id="email" class="form-control" type="email" required>
-            <div class="invalid-feedback">Please enter a valid email.</div>
+          <!-- Links (with sticker) -->
+          <div class="col-lg-6">
+            <div class="profile-card h-100 links-card">
+              <span class="card-badge">Links</span>
+
+              <a class="refs-sticker" href="resources.html" aria-label="Open Resources and References page">
+                <img src="assets/img/AD-Smol.png" alt="Click me for references">
+              </a>
+
+              <h3 class="h5">Find me online</h3>
+
+              <ul class="mb-0">
+                <li>
+                  <a href="https://github.com/AcheDiamond" target="_blank" rel="noopener">
+                    GitHub – github.com/AcheDiamond
+                  </a>
+                </li>
+
+                <li class="mt-2">
+                  <a href="https://www.linkedin.com/in/amiel-chavez-b58154343/" target="_blank" rel="noopener">
+                    LinkedIn – linkedin.com/in/amiel-chavez
+                  </a>
+                </li>
+
+                <li class="mt-2">
+                  <a href="https://www.facebook.com/amiel.chavez.583" target="_blank" rel="noopener">
+                    Facebook – facebook.com/amiel.chavez
+                  </a>
+                </li>
+
+                <li class="mt-2">
+                  <a href="https://www.instagram.com/he_was.once/" target="_blank" rel="noopener">
+                    Instagram – @he_was.once
+                  </a>
+                </li>
+              </ul>
+
+              <p class="text-muted mt-3 mb-0"></p>
+            </div>
           </div>
-
-          <div class="mb-3">
-            <label for="message" class="form-label">Message</label>
-            <textarea id="message" class="form-control" rows="4" required></textarea>
-            <div class="invalid-feedback">Please enter a message.</div>
-          </div>
-
-          <div class="d-flex flex-wrap gap-2">
-            <button class="btn btn-primary" type="submit">Send (demo)</button>
-            <button class="btn btn-outline-primary" type="button" id="copyEmailBtn">Copy my email</button>
-          </div>
-
-          <p class="small mt-3 mb-0" id="formStatus" role="status" aria-live="polite"></p>
-          <p class="small text-muted mt-2 mb-0">
-            Email: <span id="myEmail">chavez.amiel.diamond@gmail.com (dont spam pls)</span>
-          </p>
-        </form>
-      </div>
-
-      <div class="col-lg-6">
-        <div class="profile-card h-100 links-card">
-          <span class="card-badge">Links</span>
-
-          <a class="refs-sticker" href="resources.html" aria-label="Open Resources and References page">
-            <img src="assets/img/AD-Smol.png" alt="Click me for references">
-          </a>
-
-          <h3 class="h5">Find me online</h3>
-          <ul class="mb-0">
-  <li>
-    <a href="https://github.com/AcheDiamond" target="_blank" rel="noopener">
-      GitHub – github.com/AcheDiamond
-    </a>
-  </li>
-
-  <li class="mt-2">
-    <a href="https://www.linkedin.com/in/amiel-chavez-b58154343/" target="_blank" rel="noopener">
-      LinkedIn – linkedin.com/in/amiel-chavez
-    </a>
-  </li>
-
-  <li class="mt-2">
-    <a href="https://www.facebook.com/amiel.chavez.583" target="_blank" rel="noopener">
-      Facebook – facebook.com/amiel.chavez
-    </a>
-  </li>
-
-  <li class="mt-2">
-    <a href="https://www.instagram.com/he_was.once/" target="_blank" rel="noopener">
-      Instagram – @he_was.once
-    </a>
-  </li>
-</ul>
-
-          <p class="text-muted mt-3 mb-0"></p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
+    </section>
 
   </main>
 
@@ -428,6 +313,11 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+  <script src="assets/js/vue-app.js"></script>
+
   <script src="assets/js/main.js"></script>
 </body>
 </html>

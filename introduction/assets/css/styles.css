@@ -57,6 +57,7 @@ body{
   font-weight: 800;
   color: var(--deep);
 }
+
 .typing-cursor{
   display: inline-block;
   color: var(--deep);
@@ -122,7 +123,7 @@ p, li{
   height: auto;
 }
 
-/* Lists (your arrow style) */
+/* Lists (arrow style) */
 ul{ list-style: none; padding-left: 0; }
 ul li::before{
   content: "▸";
@@ -169,57 +170,12 @@ ul li::before{
 }
 
 /* ================================
-   Hobbies carousel sizing
-   ================================ */
-#hobbyCarousel{
-  width: min(100%, 900px);
-  margin: 0 auto;
-}
-
-#hobbyCarousel .carousel-inner{
-  height: clamp(220px, 38vh, 520px);
-  border-radius: 14px;
-  overflow: hidden;
-  background: #f0f9ff;
-  border: 3px solid rgba(14,165,233,0.18);
-  box-shadow: 0 10px 18px rgba(14,165,233,0.18);
-}
-
-#hobbyCarousel .carousel-item{ height: 100%; }
-
-#hobbyCarousel .gallery-img{
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
-  display: block;
-}
-
-/* Carousel arrow color */
-#hobbyCarousel .carousel-control-prev-icon,
-#hobbyCarousel .carousel-control-next-icon{
-  filter: invert(48%) sepia(96%) saturate(400%) hue-rotate(170deg) brightness(100%) contrast(95%) !important;
-  opacity: 1 !important;
-}
-
-#hobbyCarousel .carousel-control-prev,
-#hobbyCarousel .carousel-control-next{
-  width: 8%;
-}
-
-#hobbyCarousel .carousel-control-prev:hover .carousel-control-prev-icon,
-#hobbyCarousel .carousel-control-next:hover .carousel-control-next-icon{
-  filter: invert(38%) sepia(95%) saturate(520%) hue-rotate(170deg) brightness(90%) contrast(105%);
-}
-
-/* ================================
    Wavy gradient background (Hobbies)
    ================================ */
 .hobbies-bg{
   position: relative;
   overflow: hidden;
 }
-
 .hobbies-bg::before{
   content: "";
   position: absolute;
@@ -237,7 +193,6 @@ ul li::before{
     );
   pointer-events: none;
 }
-
 .hobbies-bg > .container{
   position: relative;
   z-index: 1;
@@ -253,109 +208,101 @@ ul li::before{
   color: #0369a1;
   transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
 }
-
 .navbar .nav-link:hover{
   background-color: rgba(14,165,233,0.12);
   color: #0284c7;
   transform: translateY(-1px);
 }
-
 .navbar .nav-link.active{
   background-color: #0ea5e9;
   color: white;
 }
-
 .navbar .nav-item{ margin-left: 6px; }
-
 .navbar .btn-primary{
   border-radius: 999px;
   padding: 6px 18px;
   font-weight: 700;
 }
 
-/* ================================
-   Contact Links Card + Social list + Sticker
-   ================================ */
-
-.social-list{
+/* =========================================================
+   Vue Gallery UI (replaces Bootstrap carousel; same styling)
+   ========================================================= */
+.carousel-wrap{
   display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
+  grid-template-columns: 44px 1fr 44px;
+  gap: 12px;
+  align-items: center;
 }
 
-.social-item{
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+.carousel-frame{
+  height: clamp(220px, 38vh, 520px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f0f9ff;
+  border: 3px solid rgba(14,165,233,0.18);
+  box-shadow: 0 10px 18px rgba(14,165,233,0.18);
+  display: grid;
+  place-items: center;
+}
 
-  border: 1px solid rgba(14,165,233,0.18);
+.carousel-frame img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
+.carousel-btn{
+  border: 0;
+  height: 44px;
+  width: 44px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(14,165,233,0.25);
+  color: #0284c7;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  transition: transform .15s ease, background .15s ease;
+  user-select: none;
+}
+.carousel-btn:hover{
+  transform: translateY(-1px);
+  background: rgba(224,242,254,0.95);
+}
+
+.carousel-dots{
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(2,132,199,0.25);
+  cursor: pointer;
+}
+.dot.active{ background: rgba(2,132,199,0.9); }
+
+/* =========================================================
+   Vue Guestbook / Comments UI
+   ========================================================= */
+.guest-entry{
+  border: 1px solid rgba(14,165,233,0.16);
   background: rgba(255,255,255,0.75);
   border-radius: 14px;
   padding: 10px 12px;
+  margin-bottom: 10px;
 }
 
-.social-left{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.social-icon{
-  width: 22px;
-  height: 22px;
-  flex: 0 0 auto;
-  color: #0284c7;
-}
-
-.social-link{
-  color: #0284c7;
-  font-weight: 800;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.social-link:hover{ text-decoration: underline; }
-
-.social-handle{
-  color: #475569;
-  font-weight: 600;
-  font-size: 0.95rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 26ch;
-}
-
-@media (max-width: 576px){
-  .social-handle{ max-width: 18ch; }
-}
-
-.copy-btn{
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-weight: 800;
-  white-space: nowrap;
-}
-
-.copy-toast{
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  z-index: 5;
-  display: none;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(14,165,233,0.12);
-  border: 1px solid rgba(14,165,233,0.25);
-  color: #0c4a6e;
-  font-weight: 700;
-  backdrop-filter: blur(8px);
-}
-.copy-toast.show{ display: inline-flex; }
-
+/* =========================================================
+   Contact Links Card + Sticker (desktop overlap, mobile stacks)
+   ========================================================= */
 .links-card{
   position: relative;
   overflow: visible;
@@ -378,7 +325,6 @@ ul li::before{
   height: auto;
   display: block;
   border-radius: 22px;
-
   background: rgba(255,255,255,0.95);
   padding: 12px;
 
@@ -406,6 +352,7 @@ ul li::before{
   50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
+/* Mobile: sticker goes BELOW content (never overlay) */
 @media (max-width: 768px){
   .links-card{
     padding-right: 2rem;
@@ -413,7 +360,7 @@ ul li::before{
   }
 
   .links-card .refs-sticker{
-    position: static;             
+    position: static;
     width: min(360px, 92%);
     margin: 18px auto 0 auto;
   }
