@@ -174,9 +174,6 @@ main ul li::before{
 /* Footer */
 .footer-soft{ background: rgba(255,255,255,0.55); }
 
-/* ================================
-   Wavy gradient background (Hobbies)
-   ================================ */
 .hobbies-bg{
   position: relative;
   overflow: hidden;
@@ -252,7 +249,7 @@ main ul li::before{
 .carousel-frame .gallery-img{
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   display: block;
 }
@@ -303,9 +300,6 @@ main ul li::before{
   margin-bottom: 10px;
 }
 
-/* ================================
-   Contact Links Card + Social list + Sticker
-   ================================ */
 .social-list{
   display: grid;
   gap: 10px;
@@ -384,12 +378,14 @@ main ul li::before{
 }
 .copy-toast.show{ display: inline-flex; }
 
+/* Links card */
+
 .links-card{
   position: relative;
   overflow: visible;
 
-  padding-right: clamp(240px, 40%, 380px);
-  min-height: 320px;
+  padding-right: clamp(280px, 45%, 430px);
+  min-height: 340px;
 }
 
 .links-card > :not(.refs-sticker):not(.copy-toast){
@@ -399,15 +395,14 @@ main ul li::before{
 
 .links-card .refs-sticker{
   position: absolute;
-  right: -40px;
-  bottom: -40px;
-
-  width: clamp(220px, 52%, 360px);
+  right: -90px;    /* moved more to the right */
+  bottom: -55px;   /* slightly lower */
+  width: clamp(240px, 56%, 390px);
 
   display: block;
   text-decoration: none;
 
-  z-index: 1;
+  z-index: 3;      
 }
 
 .links-card .refs-sticker img{
@@ -416,7 +411,7 @@ main ul li::before{
   display: block;
   border-radius: 22px;
 
-  background: rgba(255,255,255,0.95);
+  background: rgba(186, 230, 253, 0.95);
   padding: 12px;
 
   filter: drop-shadow(0 22px 38px rgba(14,165,233,0.35));
@@ -425,22 +420,6 @@ main ul li::before{
 
   animation: stickerPulse 3.2s ease-in-out infinite;
   transition: transform 0.22s ease, filter 0.22s ease;
-}
-
-.links-card .refs-sticker:hover img{
-  transform: rotate(-2deg) translateY(-12px) scale(1.08);
-  filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
-  animation: none;
-}
-
-.links-card .refs-sticker:focus-visible img{
-  outline: 3px solid rgba(14,165,233,0.55);
-  outline-offset: 6px;
-}
-
-@keyframes stickerPulse{
-  0%, 100% { transform: rotate(-5deg) scale(1); }
-  50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
 @media (max-width: 768px){

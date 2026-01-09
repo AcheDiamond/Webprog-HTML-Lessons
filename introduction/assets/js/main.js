@@ -20,17 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function typeLoop() {
     if (!typingEl) return;
-
     const word = words[wi];
 
     if (!deleting) {
       typingEl.textContent = word.slice(0, ci + 1);
       ci++;
-
-      if (ci < word.length) {
-        setTimeout(typeLoop, typingSpeed);
-      } else {
-        // Pause then start deleting
+      if (ci < word.length) setTimeout(typeLoop, typingSpeed);
+      else {
         setTimeout(() => {
           deleting = true;
           typeLoop();
@@ -39,33 +35,35 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       typingEl.textContent = word.slice(0, ci - 1);
       ci--;
-
-      if (ci > 0) {
-        setTimeout(typeLoop, deletingSpeed);
-      } else {
-        // Move to next word
+      if (ci > 0) setTimeout(typeLoop, deletingSpeed);
+      else {
         deleting = false;
         wi = (wi + 1) % words.length;
-
         setTimeout(typeLoop, pauseAfterDelete);
       }
     }
   }
-
   typeLoop();
 
+  // =========================
+  // ScrollSpy + smooth scroll (FIXED ACTIVE PILL)
+  // =========================
   const nav = document.getElementById("siteNav");
   const navH = nav ? nav.offsetHeight : 0;
 
-  document.documentElement.style.scrollPaddingTop = `${navH + 12}px`;
+  const OFFSET = navH + 80;
 
-  if (nav && window.bootstrap?.ScrollSpy) {
+  document.documentElement.style.scrollPaddingTop = `${OFFSET}px`;
+
+  let spy = null;
+  if (window.bootstrap?.ScrollSpy) {
+
     const existing = bootstrap.ScrollSpy.getInstance(document.body);
     if (existing) existing.dispose();
 
-    new bootstrap.ScrollSpy(document.body, {
+    spy = new bootstrap.ScrollSpy(document.body, {
       target: "#siteNav",
-      offset: navH + 12
+      offset: OFFSET
     });
   }
 
@@ -81,11 +79,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       e.preventDefault();
 
-      const y = target.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - OFFSET;
       window.scrollTo({ top: y, behavior: "smooth" });
 
       navLinks.forEach((x) => x.classList.remove("active"));
       a.classList.add("active");
+
+      setTimeout(() => {
+        if (spy) spy.refresh();
+      }, 450);
 
       const collapse = document.getElementById("navLinks");
       if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
@@ -98,10 +100,19 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // =========================
-  // Contact form validation (demo)
+  // Contact form validation (demo) + SAVE TO GUESTBOOK STORAGE
   // =========================
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
+
+  function saveToGuestbookStorage(entry) {
+    const key = "guestbookEntries";
+    const saved = localStorage.getItem(key);
+    const arr = saved ? JSON.parse(saved) : [];
+    arr.unshift(entry);
+    localStorage.setItem(key, JSON.stringify(arr));
+    window.dispatchEvent(new Event("guestbook:updated"));
+  }
 
   if (form) {
     form.addEventListener("submit", (e) => {
@@ -113,6 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (status) status.textContent = "Please fix the errors above.";
         return;
       }
+
+      const nameEl = document.getElementById("name");
+      const emailEl = document.getElementById("email");
+      const msgEl = document.getElementById("message");
+
+      saveToGuestbookStorage({
+        name: nameEl ? nameEl.value.trim() : "",
+        email: emailEl ? emailEl.value.trim() : "",
+        message: msgEl ? msgEl.value.trim() : "",
+        time: new Date().toLocaleString()
+      });
 
       form.classList.add("was-validated");
       if (status) status.textContent = "Message sent (demo). Thank you!";

@@ -38,7 +38,7 @@ const GalleryCarousel = {
   },
   methods: {
     next() {
-      this.index = (this.index + 1) % this.images.length; // infinite loop
+      this.index = (this.index + 1) % this.images.length;
     },
     prev() {
       this.index = (this.index - 1 + this.images.length) % this.images.length;
@@ -49,52 +49,23 @@ const GalleryCarousel = {
     touchEnd(e) {
       this.xEnd = e.changedTouches[0].screenX;
       const diff = this.xStart - this.xEnd;
-      if (Math.abs(diff) < 30) return; // ignore tiny swipes
+      if (Math.abs(diff) < 30) return;
       if (diff > 0) this.next();
       else this.prev();
     }
   }
 };
 
-/* ========= Vue Guestbook / Comments Component ========= */
-const GuestbookForm = {
+/* ========= Vue Guestbook / Messages Feed (NO FORM) ========= */
+const GuestbookFeed = {
   template: `
     <div>
       <span class="card-badge">Guestbook</span>
-      <h3 class="h5 mb-3">Leave a message</h3>
+      <h3 class="h5 mb-3">Messages</h3>
 
-      <form @submit.prevent="submit" novalidate>
-        <div class="mb-3">
-          <label class="form-label">Name</label>
-          <input v-model.trim="name" class="form-control" type="text" required />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Email (optional)</label>
-          <input v-model.trim="email" class="form-control" type="email" />
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Message</label>
-          <textarea v-model.trim="message" class="form-control" rows="4" required></textarea>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2">
-          <button class="btn btn-primary" type="submit">Post</button>
-          <button class="btn btn-outline-primary" type="button" @click="clear">Clear</button>
-        </div>
-
-        <p v-if="status" class="small mt-3 mb-0" role="status" aria-live="polite">{{ status }}</p>
-        <p class="small text-muted mt-2 mb-0">
-          Demo guestbook: saved locally in your browser using localStorage.
-        </p>
-      </form>
-
-      <hr class="my-4" />
-
-      <h4 class="h6 mb-3">Messages</h4>
-
-      <div v-if="entries.length === 0" class="text-muted small">No messages yet.</div>
+      <div v-if="entries.length === 0" class="text-muted small">
+        No messages yet.
+      </div>
 
       <div v-for="(e, i) in entries" :key="i" class="guest-entry">
         <div class="d-flex align-items-baseline gap-2 flex-wrap">
@@ -104,52 +75,28 @@ const GuestbookForm = {
         </div>
         <p class="mb-0">{{ e.message }}</p>
       </div>
+
+      <p class="small text-muted mt-3 mb-0">
+        Messages appear here after using the Contact form.
+      </p>
     </div>
   `,
   data() {
     return {
-      name: "",
-      email: "",
-      message: "",
-      status: "",
       entries: []
     };
   },
   mounted() {
-    const saved = localStorage.getItem("guestbookEntries");
-    if (saved) this.entries = JSON.parse(saved);
-  },
-  methods: {
-    submit() {
-      if (!this.name || !this.message) {
-        this.status = "Please enter your name and message.";
-        return;
-      }
+    const load = () => {
+      const saved = localStorage.getItem("guestbookEntries");
+      this.entries = saved ? JSON.parse(saved) : [];
+    };
 
-      const entry = {
-        name: this.name,
-        email: this.email,
-        message: this.message,
-        time: new Date().toLocaleString()
-      };
-
-      this.entries.unshift(entry);
-      localStorage.setItem("guestbookEntries", JSON.stringify(this.entries));
-
-      this.status = "Posted!";
-      this.name = "";
-      this.email = "";
-      this.message = "";
-    },
-    clear() {
-      this.name = "";
-      this.email = "";
-      this.message = "";
-      this.status = "";
-    }
+    load();
+    window.addEventListener("guestbook:updated", load);
   }
 };
 
 /* ========= Mount Apps ========= */
 Vue.createApp({}).component("gallery-carousel", GalleryCarousel).mount("#vueGallery");
-Vue.createApp({}).component("guestbook-form", GuestbookForm).mount("#vueGuestbook");
+Vue.createApp({}).component("guestbook-form", GuestbookFeed).mount("#vueGuestbook");
