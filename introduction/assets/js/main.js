@@ -139,3 +139,11 @@ document.addEventListener("DOMContentLoaded", () => {
       rootMargin: `-${offset}px 0px -60% 0px`
     });
   };
+    applyScrollOffsets();
+  initScrollSpy();
+
+  window.addEventListener("resize", () => {
+    applyScrollOffsets();
+    initScrollSpy();
+  });
+
