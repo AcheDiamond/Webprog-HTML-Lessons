@@ -168,6 +168,9 @@ ul li::before{
   .skills-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
+/* ================================
+   Hobbies carousel sizing
+   ================================ */
 #hobbyCarousel{
   width: min(100%, 900px);
   margin: 0 auto;
@@ -182,48 +185,17 @@ ul li::before{
   box-shadow: 0 10px 18px rgba(14,165,233,0.18);
 }
 
-#hobbyCarousel .carousel-item{
-  height: 100%;
-}
+#hobbyCarousel .carousel-item{ height: 100%; }
 
 #hobbyCarousel .gallery-img{
   width: 100%;
   height: 100%;
-  object-fit: contain;      
+  object-fit: contain;
   object-position: center;
   display: block;
 }
 
-.hobbies-bg{
-  position: relative;
-  overflow: hidden;
-}
-
-.hobbies-bg::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-
-  background:
-    radial-gradient(1200px 300px at 10% 10%, rgba(186,230,253,0.9), transparent 60%),
-    radial-gradient(1000px 260px at 80% 20%, rgba(224,242,254,0.9), transparent 65%),
-    radial-gradient(900px 240px at 30% 80%, rgba(147,197,253,0.8), transparent 60%),
-    linear-gradient(
-      180deg,
-      rgba(240,249,255,0.95) 0%,
-      rgba(224,242,254,0.95) 50%,
-      rgba(186,230,253,0.95) 100%
-    );
-
-  pointer-events: none;
-}
-
-.hobbies-bg > .container{
-  position: relative;
-  z-index: 1;
-}
-
+/* Carousel arrow color */
 #hobbyCarousel .carousel-control-prev-icon,
 #hobbyCarousel .carousel-control-next-icon{
   filter: invert(48%) sepia(96%) saturate(400%) hue-rotate(170deg) brightness(100%) contrast(95%) !important;
@@ -234,22 +206,58 @@ ul li::before{
 #hobbyCarousel .carousel-control-next{
   width: 8%;
 }
+
 #hobbyCarousel .carousel-control-prev:hover .carousel-control-prev-icon,
 #hobbyCarousel .carousel-control-next:hover .carousel-control-next-icon{
   filter: invert(38%) sepia(95%) saturate(520%) hue-rotate(170deg) brightness(90%) contrast(105%);
 }
 
+/* ================================
+   Wavy gradient background (Hobbies)
+   ================================ */
+.hobbies-bg{
+  position: relative;
+  overflow: hidden;
+}
+
+.hobbies-bg::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(1200px 300px at 10% 10%, rgba(186,230,253,0.9), transparent 60%),
+    radial-gradient(1000px 260px at 80% 20%, rgba(224,242,254,0.9), transparent 65%),
+    radial-gradient(900px 240px at 30% 80%, rgba(147,197,253,0.8), transparent 60%),
+    linear-gradient(
+      180deg,
+      rgba(240,249,255,0.95) 0%,
+      rgba(224,242,254,0.95) 50%,
+      rgba(186,230,253,0.95) 100%
+    );
+  pointer-events: none;
+}
+
+.hobbies-bg > .container{
+  position: relative;
+  z-index: 1;
+}
+
+/* ================================
+   Navbar pill buttons
+   ================================ */
 .navbar .nav-link{
   padding: 6px 14px;
-  border-radius: 999px;                 
+  border-radius: 999px;
   font-weight: 600;
-  color: #0369a1;                       
-  transition: background-color 0.25s ease, color 0.25s ease;
+  color: #0369a1;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease;
 }
 
 .navbar .nav-link:hover{
   background-color: rgba(14,165,233,0.12);
   color: #0284c7;
+  transform: translateY(-1px);
 }
 
 .navbar .nav-link.active{
@@ -257,9 +265,7 @@ ul li::before{
   color: white;
 }
 
-.navbar .nav-item{
-  margin-left: 6px;
-}
+.navbar .nav-item{ margin-left: 6px; }
 
 .navbar .btn-primary{
   border-radius: 999px;
@@ -267,21 +273,22 @@ ul li::before{
   font-weight: 700;
 }
 
-.navbar .nav-link:hover{
-  transform: translateY(-1px);
-}
-
+/* ================================
+   Links card: HERO sticker (References)
+   ================================ */
 .links-card{
   position: relative;
-  overflow: visible; 
+  overflow: visible;
+  padding-bottom: 260px; /
 }
 
-/* Clickable sticker image */
 .refs-sticker{
   position: absolute;
-  right: -28px;            
-  bottom: -28px;           
-  width: min(360px, 46%);  
+  right: -60px;          
+  bottom: -60px;         
+  width: 70%;            
+  max-width: 520px;      
+  min-width: 320px;      
   display: block;
   text-decoration: none;
   z-index: 2;
@@ -291,24 +298,23 @@ ul li::before{
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 18px;
-
+  border-radius: 22px;
 
   background: rgba(255,255,255,0.95);
-  padding: 10px;
+  padding: 12px;
 
-  filter: drop-shadow(0 18px 30px rgba(14,165,233,0.35));
+  filter: drop-shadow(0 22px 38px rgba(14,165,233,0.35));
   transform-origin: 70% 80%;
-  transform: rotate(-4deg);
+  transform: rotate(-5deg);
 
   animation: stickerPulse 3.2s ease-in-out infinite;
   transition: transform 0.22s ease, filter 0.22s ease;
 }
 
 .refs-sticker:hover img{
-  transform: rotate(-2deg) translateY(-8px) scale(1.06);
-  filter: drop-shadow(0 26px 42px rgba(14,165,233,0.48));
-  animation: none; 
+  transform: rotate(-2deg) translateY(-12px) scale(1.08);
+  filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
+  animation: none;
 }
 
 .refs-sticker:focus-visible img{
@@ -317,30 +323,19 @@ ul li::before{
 }
 
 @keyframes stickerPulse{
-  0%, 100% { transform: rotate(-4deg) scale(1); }
-  50%      { transform: rotate(-4deg) scale(1.03); }
+  0%, 100% { transform: rotate(-5deg) scale(1); }
+  50%      { transform: rotate(-5deg) scale(1.04); }
 }
 
 @media (max-width: 768px){
   .refs-sticker{
-    width: min(300px, 70%);
-    right: -18px;
-    bottom: -18px;
+    width: 85%;
+    right: -30px;
+    bottom: -30px;
+    min-width: 0;
+    max-width: 420px;
   }
-  .refs-sticker img{
-    padding: 8px;
-    border-radius: 16px;
-  }
-
-.links-card{
-  padding-bottom: 180px; /* space for sticker (desktop) */
-}
-@media (max-width: 768px){
   .links-card{
-    padding-bottom: 200px; /* space for sticker (mobile) */
+    padding-bottom: 320px; 
   }
 }
-
-
-
-
