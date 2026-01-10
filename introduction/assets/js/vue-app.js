@@ -37,15 +37,9 @@ const GalleryCarousel = {
     }
   },
   methods: {
-    next() {
-      this.index = (this.index + 1) % this.images.length;
-    },
-    prev() {
-      this.index = (this.index - 1 + this.images.length) % this.images.length;
-    },
-    touchStart(e) {
-      this.xStart = e.changedTouches[0].screenX;
-    },
+    next() { this.index = (this.index + 1) % this.images.length; },
+    prev() { this.index = (this.index - 1 + this.images.length) % this.images.length; },
+    touchStart(e) { this.xStart = e.changedTouches[0].screenX; },
     touchEnd(e) {
       this.xEnd = e.changedTouches[0].screenX;
       const diff = this.xStart - this.xEnd;
@@ -56,12 +50,10 @@ const GalleryCarousel = {
   }
 };
 
-/* ========= Vue Guestbook / Messages Feed (NO FORM) ========= */
-const GuestbookFeed = {
+const ContactGuestbookFeed = {
   template: `
-    <div>
-      <span class="card-badge">Guestbook</span>
-      <h3 class="h5 mb-3">Messages</h3>
+    <div class="mt-4">
+      <h4 class="h6 mb-3">Messages</h4>
 
       <div v-if="entries.length === 0" class="text-muted small">
         No messages yet.
@@ -75,28 +67,24 @@ const GuestbookFeed = {
         </div>
         <p class="mb-0">{{ e.message }}</p>
       </div>
-
-      <p class="small text-muted mt-3 mb-0">
-        Messages appear here after using the Contact form.
-      </p>
     </div>
   `,
   data() {
-    return {
-      entries: []
-    };
+    return { entries: [] };
   },
   mounted() {
     const load = () => {
       const saved = localStorage.getItem("guestbookEntries");
       this.entries = saved ? JSON.parse(saved) : [];
     };
-
     load();
     window.addEventListener("guestbook:updated", load);
   }
 };
 
-/* ========= Mount Apps ========= */
+// Mount Gallery
 Vue.createApp({}).component("gallery-carousel", GalleryCarousel).mount("#vueGallery");
-Vue.createApp({}).component("guestbook-form", GuestbookFeed).mount("#vueGuestbook");
+
+if (document.getElementById("vueContactGuestbook")) {
+  Vue.createApp({}).component("contact-guestbook-feed", ContactGuestbookFeed).mount("#vueContactGuestbook");
+}

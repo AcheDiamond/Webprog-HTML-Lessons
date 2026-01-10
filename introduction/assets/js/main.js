@@ -20,13 +20,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function typeLoop() {
     if (!typingEl) return;
+
     const word = words[wi];
 
     if (!deleting) {
       typingEl.textContent = word.slice(0, ci + 1);
       ci++;
-      if (ci < word.length) setTimeout(typeLoop, typingSpeed);
-      else {
+
+      if (ci < word.length) {
+        setTimeout(typeLoop, typingSpeed);
+      } else {
         setTimeout(() => {
           deleting = true;
           typeLoop();
@@ -35,8 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       typingEl.textContent = word.slice(0, ci - 1);
       ci--;
-      if (ci > 0) setTimeout(typeLoop, deletingSpeed);
-      else {
+
+      if (ci > 0) {
+        setTimeout(typeLoop, deletingSpeed);
+      } else {
         deleting = false;
         wi = (wi + 1) % words.length;
         setTimeout(typeLoop, pauseAfterDelete);
@@ -45,19 +50,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   typeLoop();
 
-  // =========================
-  // ScrollSpy + smooth scroll (FIXED ACTIVE PILL)
-  // =========================
   const nav = document.getElementById("siteNav");
   const navH = nav ? nav.offsetHeight : 0;
 
-  const OFFSET = navH + 80;
+  // Make the Contact button participate in ScrollSpy
+  const contactNavBtn = document.querySelector('#siteNav a.btn[href="#contact"]');
+  if (contactNavBtn) contactNavBtn.classList.add("nav-link");
+
+  // One consistent offset everywhere
+  const OFFSET = navH + 40;
 
   document.documentElement.style.scrollPaddingTop = `${OFFSET}px`;
 
   let spy = null;
-  if (window.bootstrap?.ScrollSpy) {
-
+  if (nav && window.bootstrap?.ScrollSpy) {
     const existing = bootstrap.ScrollSpy.getInstance(document.body);
     if (existing) existing.dispose();
 
@@ -67,8 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const navLinks = document.querySelectorAll('#siteNav a.nav-link[href^="#"]');
-
+  const navLinks = document.querySelectorAll('#siteNav a[href^="#"]');
   navLinks.forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
@@ -87,8 +92,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       setTimeout(() => {
         if (spy) spy.refresh();
-      }, 450);
+      }, 500);
 
+      // Close mobile menu after click
       const collapse = document.getElementById("navLinks");
       if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
         const bsCollapse =
@@ -99,13 +105,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // =========================
-  // Contact form validation (demo) + SAVE TO GUESTBOOK STORAGE
-  // =========================
+  const guestbookHost = document.getElementById("vueGuestbook");
+  if (guestbookHost) {
+    const card = guestbookHost.closest(".profile-card");
+    if (card) card.remove();
+  }
+
   const form = document.getElementById("contactForm");
   const status = document.getElementById("formStatus");
 
-  function saveToGuestbookStorage(entry) {
+  // Add Vue mount point INSIDE contact form (no HTML edits)
+  if (form && !document.getElementById("vueContactGuestbook")) {
+    const mount = document.createElement("div");
+    mount.id = "vueContactGuestbook";
+    mount.className = "mt-3";
+    form.appendChild(mount);
+  }
+
+  function saveToGuestbook(entry) {
     const key = "guestbookEntries";
     const saved = localStorage.getItem(key);
     const arr = saved ? JSON.parse(saved) : [];
@@ -129,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const emailEl = document.getElementById("email");
       const msgEl = document.getElementById("message");
 
-      saveToGuestbookStorage({
+      saveToGuestbook({
         name: nameEl ? nameEl.value.trim() : "",
         email: emailEl ? emailEl.value.trim() : "",
         message: msgEl ? msgEl.value.trim() : "",
@@ -157,27 +174,4 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  // Copy social handles (buttons)
-  const toast = document.getElementById("copyToast");
-
-  document.querySelectorAll("[data-copy]").forEach((btn) => {
-    btn.addEventListener("click", async () => {
-      const value = btn.getAttribute("data-copy") || "";
-      try {
-        await navigator.clipboard.writeText(value);
-        if (toast) {
-          toast.textContent = `Copied: ${value}`;
-          toast.classList.add("show");
-          setTimeout(() => toast.classList.remove("show"), 1200);
-        }
-      } catch {
-        if (toast) {
-          toast.textContent = "Copy failed";
-          toast.classList.add("show");
-          setTimeout(() => toast.classList.remove("show"), 1200);
-        }
-      }
-    });
-  });
 });
