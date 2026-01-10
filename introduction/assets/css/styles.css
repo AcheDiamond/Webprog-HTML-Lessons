@@ -201,6 +201,7 @@ main ul li::before{
   z-index: 1;
 }
 
+/* Navbar links (no active pill) */
 .navbar .nav-link{
   padding: 6px 14px;
   border-radius: 999px;
@@ -213,7 +214,6 @@ main ul li::before{
   color: #0284c7;
   transform: translateY(-1px);
 }
-/* Disable active styling completely */
 .navbar .nav-link.active{
   background-color: transparent !important;
   color: #0369a1 !important;
@@ -226,6 +226,9 @@ main ul li::before{
   font-weight: 700;
 }
 
+/* =========================================
+   Vue Gallery UI (Dynamic portrait/landscape)
+   ========================================= */
 .carousel-wrap{
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr) 44px;
@@ -233,39 +236,67 @@ main ul li::before{
   align-items: center;
 }
 
+/* Base frame */
 .carousel-frame{
   width: 100%;
   max-width: 100%;
-  height: min(60vh, 520px);
-  min-height: 240px;
 
   border-radius: 14px;
   overflow: hidden;
-  background: #f0f9ff;
+
+  /* black looks best for letterboxing */
+  background: #000;
+
   border: 3px solid rgba(14,165,233,0.18);
   box-shadow: 0 10px 18px rgba(14,165,233,0.18);
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  /* default (landscape-ish) height */
+  height: min(60vh, 560px);
+  min-height: 280px;
+}
+
+/* Portrait gets more height automatically */
+.carousel-frame.is-portrait{
+  height: min(80vh, 900px);
+  min-height: 360px;
+}
+
+/* Square in between */
+.carousel-frame.is-square{
+  height: min(70vh, 760px);
+  min-height: 320px;
 }
 
 .carousel-frame .gallery-img{
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  max-width: 100% !important;
+  max-height: 100% !important;
 
-  object-fit: contain;
-  object-position: center;
-  display: block;
-  background: #000;
+  width: auto !important;
+  height: auto !important;
+
+  object-fit: contain !important;
+  object-position: center !important;
+
+  display: block !important;
 }
 
+/* Mobile tuning */
 @media (max-width: 576px){
   .carousel-frame{
-    height: min(55vh, 460px);
+    height: min(55vh, 520px);
     min-height: 260px;
+  }
+  .carousel-frame.is-portrait{
+    height: min(75vh, 760px);
+    min-height: 320px;
+  }
+  .carousel-frame.is-square{
+    height: min(65vh, 660px);
+    min-height: 300px;
   }
 }
 
@@ -315,9 +346,7 @@ main ul li::before{
   margin-bottom: 10px;
 }
 
-/* ================================
-   Social links list + copy buttons
-   ================================ */
+/* Social links list + copy buttons */
 .social-list{
   display: grid;
   gap: 10px;
@@ -396,9 +425,7 @@ main ul li::before{
 }
 .copy-toast.show{ display: inline-flex; }
 
-/* ================================
-   Links card + Sticker
-   ================================ */
+/* Links card + Sticker */
 .links-card{
   position: relative;
   overflow: visible;

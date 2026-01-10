@@ -7,8 +7,13 @@ const GalleryCarousel = {
       <div class="carousel-wrap" @touchstart="touchStart" @touchend="touchEnd">
         <button class="carousel-btn" type="button" @click="prev" aria-label="Previous">‹</button>
 
-        <div class="carousel-frame">
-          <img :src="currentSrc" class="gallery-img" :alt="'Hobby photo ' + (index + 1)" />
+        <div class="carousel-frame" :class="frameClass">
+          <img
+            :src="currentSrc"
+            class="gallery-img"
+            :alt="'Hobby photo ' + (index + 1)"
+            @load="onImgLoad"
+          />
         </div>
 
         <button class="carousel-btn" type="button" @click="next" aria-label="Next">›</button>
@@ -19,7 +24,7 @@ const GalleryCarousel = {
               :key="n"
               class="dot"
               :class="{active:(n-1)===index}"
-              @click="index=n-1"></span>
+              @click="goTo(n-1)"></span>
       </div>
     </div>
   `,
@@ -28,17 +33,28 @@ const GalleryCarousel = {
       index: 0,
       images: Array.from({ length: 16 }, (_, i) => `assets/img/gallery/${i + 1}.png`),
       xStart: 0,
-      xEnd: 0
+      xEnd: 0,
+      orientationMap: {}
     };
   },
   computed: {
     currentSrc() {
       return this.images[this.index];
+    },
+    frameClass() {
+      const o = this.orientationMap[this.currentSrc] || "landscape";
+      return {
+        "is-portrait": o === "portrait",
+        "is-landscape": o === "landscape",
+        "is-square": o === "square"
+      };
     }
   },
   methods: {
     next() { this.index = (this.index + 1) % this.images.length; },
     prev() { this.index = (this.index - 1 + this.images.length) % this.images.length; },
+    goTo(i) { this.index = i; },
+
     touchStart(e) { this.xStart = e.changedTouches[0].screenX; },
     touchEnd(e) {
       this.xEnd = e.changedTouches[0].screenX;
@@ -46,6 +62,20 @@ const GalleryCarousel = {
       if (Math.abs(diff) < 30) return;
       if (diff > 0) this.next();
       else this.prev();
+    },
+
+    onImgLoad(e) {
+      const img = e.target;
+      const w = img.naturalWidth || 0;
+      const h = img.naturalHeight || 0;
+      if (!w || !h) return;
+
+      let o = "landscape";
+      if (h > w * 1.05) o = "portrait";
+      else if (w > h * 1.05) o = "landscape";
+      else o = "square";
+
+      this.orientationMap[img.currentSrc || img.src] = o;
     }
   }
 };
@@ -82,7 +112,6 @@ const ContactGuestbookFeed = {
   }
 };
 
-// Mount Gallery
 Vue.createApp({}).component("gallery-carousel", GalleryCarousel).mount("#vueGallery");
 
 if (document.getElementById("vueContactGuestbook")) {
