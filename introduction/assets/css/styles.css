@@ -460,3 +460,18 @@ main ul li::before{
   filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
   animation: stickerPulse 3.2s ease-in-out infinite; 
 }
+
+@keyframes stickerBob {
+  0%, 100% { transform: rotate(-5deg) translateY(0); }
+  50%      { transform: rotate(-5deg) translateY(-10px); }
+}
+
+.links-card .refs-sticker img{
+  animation: stickerBob 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .links-card .refs-sticker img{
+    animation: none !important;
+  }
+}
