@@ -182,9 +182,47 @@ document.addEventListener("DOMContentLoaded", () => {
     return { ok, value };
   }
 
-  // =========================
-  // Copy my email button
-  // =========================
+  function getCopyValueFromButton(btn) {
+    const data = (btn.getAttribute("data-copy") || "").trim();
+
+    const looksLikeUrl =
+      /^https?:\/\//i.test(data) ||
+      /^www\./i.test(data) ||
+      data.includes("github.com") ||
+      data.includes("linkedin.com") ||
+      data.includes("facebook.com") ||
+      data.includes("instagram.com");
+
+    if (data && looksLikeUrl) {
+      if (/^www\./i.test(data)) return `https://${data}`;
+      return data;
+    }
+
+    const row = btn.closest(".social-item");
+    const a = row ? row.querySelector("a.social-link") : null;
+    const href = a ? a.getAttribute("href") : "";
+    return (href || data).trim();
+  }
+
+
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".copy-btn");
+    if (!btn) return;
+
+    e.preventDefault();
+
+    const value = getCopyValueFromButton(btn);
+    const result = await copyText(value);
+
+    if (result.ok) showToast(`Copied link!`);
+    else {
+      showToast("Copy failed");
+      if (!document.getElementById("copyToast")) {
+        alert("Copy failed — please copy manually.");
+      }
+    }
+  });
+
   const copyEmailBtn = document.getElementById("copyEmailBtn");
   const myEmail = document.getElementById("myEmail");
 
@@ -194,40 +232,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const { ok, value } = await copyText(myEmail.textContent);
       if (ok) {
         if (status) status.textContent = "Email copied!";
-        showToast(`Copied: ${value}`);
+        showToast("Copied email!");
       } else {
         if (status) status.textContent = "Copy failed — please copy manually.";
         showToast("Copy failed");
       }
     });
   }
-
-  // =========================
-  // Copy social buttons
-  // =========================
-  document.addEventListener("click", async (e) => {
-    const btn = e.target.closest(".copy-btn, [data-copy]");
-    if (!btn) return;
-
-    e.preventDefault();
-
-    let value = btn.getAttribute("data-copy");
-
-    if (!value) {
-      const row = btn.closest(".social-item") || btn.closest("li") || btn.closest("div");
-      const handleEl = row ? row.querySelector(".social-handle") : null;
-      value = handleEl ? handleEl.textContent : "";
-    }
-
-    const result = await copyText(value);
-
-    if (result.ok) {
-      showToast(`Copied: ${result.value}`);
-    } else {
-      showToast("Copy failed");
-      if (!document.getElementById("copyToast")) {
-        alert("Copy failed — please copy manually.");
-      }
-    }
-  });
 });
