@@ -52,28 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const nav = document.getElementById("siteNav");
   const navH = nav ? nav.offsetHeight : 0;
-
-  // Make the Contact button participate in ScrollSpy
-  const contactNavBtn = document.querySelector('#siteNav a.btn[href="#contact"]');
-  if (contactNavBtn) contactNavBtn.classList.add("nav-link");
-
-  // One consistent offset everywhere
   const OFFSET = navH + 40;
 
   document.documentElement.style.scrollPaddingTop = `${OFFSET}px`;
 
-  let spy = null;
-  if (nav && window.bootstrap?.ScrollSpy) {
-    const existing = bootstrap.ScrollSpy.getInstance(document.body);
-    if (existing) existing.dispose();
-
-    spy = new bootstrap.ScrollSpy(document.body, {
-      target: "#siteNav",
-      offset: OFFSET
-    });
-  }
-
   const navLinks = document.querySelectorAll('#siteNav a[href^="#"]');
+
   navLinks.forEach((a) => {
     a.addEventListener("click", (e) => {
       const href = a.getAttribute("href");
@@ -87,14 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const y = target.getBoundingClientRect().top + window.pageYOffset - OFFSET;
       window.scrollTo({ top: y, behavior: "smooth" });
 
-      navLinks.forEach((x) => x.classList.remove("active"));
-      a.classList.add("active");
-
-      setTimeout(() => {
-        if (spy) spy.refresh();
-      }, 500);
-
-      // Close mobile menu after click
       const collapse = document.getElementById("navLinks");
       if (collapse && collapse.classList.contains("show") && window.bootstrap?.Collapse) {
         const bsCollapse =
@@ -160,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Copy email button
   const copyEmailBtn = document.getElementById("copyEmailBtn");
   const myEmail = document.getElementById("myEmail");
 
@@ -174,4 +149,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  const toast = document.getElementById("copyToast");
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const value = btn.getAttribute("data-copy") || "";
+      try {
+        await navigator.clipboard.writeText(value);
+        if (toast) {
+          toast.textContent = `Copied: ${value}`;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
+      } catch {
+        if (toast) {
+          toast.textContent = "Copy failed";
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 1200);
+        }
+      }
+    });
+  });
 });

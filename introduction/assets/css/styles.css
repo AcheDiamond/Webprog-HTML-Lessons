@@ -440,3 +440,23 @@ main ul li::before{
     transform: rotate(-2deg);
   }
 }
+
+.navbar .nav-link.active{
+  background-color: transparent !important;
+  color: #0369a1 !important;
+}
+
+.navbar .nav-link:hover{
+  background-color: rgba(14,165,233,0.12);
+  color: #0284c7;
+}
+
+.links-card .refs-sticker img{
+  animation: stickerPulse 3.2s ease-in-out infinite;
+}
+
+.links-card .refs-sticker:hover img{
+  transform: rotate(-2deg) translateY(-12px) scale(1.08);
+  filter: drop-shadow(0 32px 55px rgba(14,165,233,0.48));
+  animation: stickerPulse 3.2s ease-in-out infinite; 
+}
